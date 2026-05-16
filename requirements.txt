@@ -1,0 +1,11 @@
+# Front-end da Interface Visual
+streamlit>=1.30.0
+
+# Comunicação com o LLM (Gemma) e Embeddings
+ollama>=0.1.6
+
+# Matemática e manipulação de vetores
+numpy>=1.24.0
+
+# Motor RAG de pesquisa vetorial de alta performance
+faiss-cpu>=1.7.4
