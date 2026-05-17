@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# CSS CUSTOM PREMIUM - Tema médico escuro com glassmorphism
+# CSS CUSTOM PREMIUM - Tema médico claro e profissional
 st.markdown("""
 <style>
     /* ===== IMPORTAR FONTES ===== */
@@ -22,9 +22,12 @@ st.markdown("""
     /* ===== RESET E BASE ===== */
     *, *::before, *::after { box-sizing: border-box; }
 
-    .stApp {
-        background: linear-gradient(160deg, #0a0f1a 0%, #0d1b2a 35%, #1b2838 70%, #0a1628 100%);
-        font-family: 'Inter', sans-serif;
+    /* Fundo Principal: Clean Medical Mint/Teal (Sem degradês confusos, super profissional) */
+    html, body, .stApp, .stApp > header, [data-testid="stAppViewContainer"], .main {
+        background: #f0fdfa !important; /* Mint muito suave e uniforme */
+        background-color: #f0fdfa !important;
+        font-family: 'Inter', sans-serif !important;
+        min-height: 100vh !important;
     }
 
     /* ===== HEADER / TITULO ===== */
@@ -34,38 +37,40 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
     .custom-header h1 {
-        background: linear-gradient(135deg, #38bdf8 0%, #06d6a0 50%, #38bdf8 100%);
+        background: linear-gradient(135deg, #0d9488 0%, #0ea5e9 50%, #0d9488 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-size: 2rem;
-        font-weight: 700;
+        font-size: 2.2rem;
+        font-weight: 800;
         letter-spacing: -0.5px;
         margin-bottom: 0.2rem;
         animation: shimmer 4s ease-in-out infinite;
+        text-shadow: 0 0 20px rgba(13, 148, 136, 0.2);
     }
     @keyframes shimmer {
         0%, 100% { background-position: 0% center; }
         50% { background-position: 200% center; }
     }
     .custom-header .subtitle {
-        color: #94a3b8;
-        font-size: 0.85rem;
-        font-weight: 400;
-        letter-spacing: 0.3px;
+        color: #475569;
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
     }
     .pulse-dot {
         display: inline-block;
-        width: 8px; height: 8px;
-        background: #06d6a0;
+        width: 10px; height: 10px;
+        background: #0ea5e9;
         border-radius: 50%;
-        margin-right: 6px;
+        margin-right: 8px;
         animation: pulse 2s ease-in-out infinite;
         vertical-align: middle;
+        box-shadow: 0 0 12px rgba(14, 165, 233, 0.6);
     }
     @keyframes pulse {
-        0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(6, 214, 160, 0.5); }
-        50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(6, 214, 160, 0); }
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.2); }
     }
 
     /* ===== ESCONDER ELEMENTOS PADRAO DO STREAMLIT ===== */
@@ -80,162 +85,185 @@ st.markdown("""
     /* ===== AREA DO CHAT ===== */
     section[data-testid="stChatMessageContainer"],
     .stChatMessageContainer {
-        padding-bottom: 80px !important;
+        padding-bottom: 120px !important;
     }
 
     /* ===== BALOES DE MENSAGEM ===== */
     div[data-testid="stChatMessage"] {
-        background: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(255, 255, 255, 0.07) !important;
-        border-radius: 16px !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        padding: 1rem 1.2rem !important;
-        margin-bottom: 0.7rem !important;
-        transition: border-color 0.3s ease, background 0.3s ease;
+        background: #ffffff !important;
+        border: 1px solid rgba(13, 148, 136, 0.1) !important;
+        border-radius: 20px !important;
+        padding: 1.2rem 1.5rem !important;
+        margin-bottom: 1rem !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03) !important;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     div[data-testid="stChatMessage"]:hover {
-        border-color: rgba(56, 189, 248, 0.15) !important;
-        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(13, 148, 136, 0.3) !important;
+        box-shadow: 0 10px 30px rgba(13, 148, 136, 0.08) !important;
+        transform: translateY(-2px);
     }
 
     /* Mensagens do assistente */
     div[data-testid="stChatMessage"]:has(img[alt="assistant"]),
     div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
-        border-left: 3px solid rgba(6, 214, 160, 0.5) !important;
+        border-left: 5px solid #0d9488 !important;
     }
 
     /* Mensagens do utilizador */
     div[data-testid="stChatMessage"]:has(img[alt="user"]),
     div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
-        border-left: 3px solid rgba(56, 189, 248, 0.5) !important;
+        border-left: 5px solid #0ea5e9 !important;
     }
 
     /* Texto dentro das mensagens */
     div[data-testid="stChatMessage"] p,
     div[data-testid="stChatMessage"] li,
     div[data-testid="stChatMessage"] span {
-        color: #e2e8f0 !important;
-        font-size: 0.92rem !important;
+        color: #1e293b !important;
+        font-size: 0.95rem !important;
         line-height: 1.7 !important;
+        letter-spacing: 0.2px !important;
     }
     div[data-testid="stChatMessage"] strong {
-        color: #38bdf8 !important;
+        color: #0f766e !important;
     }
     div[data-testid="stChatMessage"] em {
-        color: #94a3b8 !important;
+        color: #64748b !important;
     }
     div[data-testid="stChatMessage"] hr {
-        border-color: rgba(255,255,255,0.08) !important;
-        margin: 0.8rem 0 !important;
+        border-color: rgba(13, 148, 136, 0.1) !important;
+        margin: 1rem 0 !important;
     }
 
-    /* ===== CAIXA DE INPUT (FLUTUANTE) ===== */
+    /* ===== CAIXA DE INPUT (FLUTUANTE, BRILHANTE E SEM RETANGULO) ===== */
+    
+    /* Ao forçar o transparente, ele vai mostrar a cor sólida super limpa da base (#f0fdfa) sem cortes! */
+    [data-testid="stBottom"], 
+    [data-testid="stBottomBlockContainer"],
+    .stChatFloatingInputContainer,
+    .stApp > div > div > div > div > div:last-child {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Container base do input */
     div[data-testid="stChatInput"] {
         background: transparent !important;
-        border-top: none !important;
-        padding: 0.6rem 2rem 1rem 2rem !important;
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0 2rem 2rem 2rem !important;
     }
-    /* O container interno do input */
+    
+    /* A pílula de texto */
     div[data-testid="stChatInput"] > div {
-        background: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(56, 189, 248, 0.15) !important;
-        border-radius: 24px !important;
-        backdrop-filter: blur(16px) !important;
-        -webkit-backdrop-filter: blur(16px) !important;
-        padding: 0.3rem 0.4rem !important;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3) !important;
+        background: #ffffff !important;
+        border: 1px solid rgba(13, 148, 136, 0.2) !important;
+        border-radius: 30px !important;
+        padding: 0.4rem 0.6rem !important;
+        box-shadow: 0 10px 30px rgba(13, 148, 136, 0.08) !important;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     div[data-testid="stChatInput"] > div:focus-within {
-        border-color: rgba(56, 189, 248, 0.35) !important;
-        box-shadow: 0 4px 32px rgba(56, 189, 248, 0.1) !important;
+        border-color: #0d9488 !important;
+        box-shadow: 0 10px 40px rgba(13, 148, 136, 0.15) !important;
     }
-    div[data-testid="stChatInput"] textarea {
-        background: transparent !important;
+    
+    /* Area de texto */
+    div[data-testid="stChatInput"] textarea,
+    div[data-testid="stChatInput"] textarea:focus,
+    div[data-testid="stChatInput"] textarea:active {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
         border: none !important;
-        border-radius: 20px !important;
-        color: #e2e8f0 !important;
+        color: #1e293b !important;
+        -webkit-text-fill-color: #1e293b !important;
         font-family: 'Inter', sans-serif !important;
-        font-size: 0.9rem !important;
-        padding: 0.6rem 0.8rem !important;
+        font-size: 0.95rem !important;
+        padding: 0.7rem 1.2rem !important;
         resize: none !important;
-    }
-    div[data-testid="stChatInput"] textarea:focus {
-        border: none !important;
         box-shadow: none !important;
         outline: none !important;
     }
     div[data-testid="stChatInput"] textarea::placeholder {
-        color: #64748b !important;
+        color: #94a3b8 !important;
     }
+    
+    /* Botão de Enviar Redondo e Brilhante */
     div[data-testid="stChatInput"] button {
-        background: linear-gradient(135deg, #06d6a0, #38bdf8) !important;
+        background: linear-gradient(135deg, #0d9488, #0ea5e9) !important;
         border: none !important;
         border-radius: 50% !important;
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        transition: opacity 0.2s ease, transform 0.2s ease;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3) !important;
+        margin-right: 4px !important;
     }
     div[data-testid="stChatInput"] button:hover {
-        opacity: 0.85 !important;
-        transform: scale(1.1);
+        transform: scale(1.1) rotate(5deg) !important;
+        box-shadow: 0 6px 20px rgba(13, 148, 136, 0.5) !important;
     }
     div[data-testid="stChatInput"] button svg {
-        fill: #0a0f1a !important;
+        fill: #ffffff !important;
     }
 
     /* ===== SPINNER ===== */
     .stSpinner > div {
-        border-top-color: #06d6a0 !important;
+        border-top-color: #0d9488 !important;
     }
     .stSpinner > div > span {
-        color: #94a3b8 !important;
+        color: #64748b !important;
         font-size: 0.85rem !important;
     }
 
     /* ===== SIDEBAR ===== */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0d1b2a 0%, #0a1628 100%) !important;
-        border-right: 1px solid rgba(56, 189, 248, 0.08) !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        border-right: 1px solid rgba(13, 148, 136, 0.08) !important;
+        box-shadow: 2px 0 20px rgba(0,0,0,0.03) !important;
     }
     section[data-testid="stSidebar"] * {
-        color: #cbd5e1 !important;
+        color: #334155 !important;
     }
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {
-        color: #38bdf8 !important;
+        color: #0f766e !important;
         font-weight: 600 !important;
     }
 
     .sidebar-card {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(56, 189, 248, 0.12);
+        background: #ffffff;
+        border: 1px solid rgba(13, 148, 136, 0.15);
         border-radius: 12px;
         padding: 1rem;
-        margin-bottom: 0.8rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
     .sidebar-card h4 {
-        color: #06d6a0 !important;
+        color: #0d9488 !important;
         font-size: 0.8rem;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
         margin-bottom: 0.5rem;
         font-weight: 600;
     }
     .sidebar-card p {
-        color: #e2e8f0 !important;
+        color: #475569 !important;
         font-size: 0.85rem;
         margin: 0.2rem 0;
-        line-height: 1.5;
+        line-height: 1.6;
     }
     .sidebar-card .label {
-        color: #64748b !important;
+        color: #94a3b8 !important;
         font-size: 0.75rem;
     }
 
@@ -244,47 +272,52 @@ st.markdown("""
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 4px 12px;
+        padding: 6px 14px;
         border-radius: 20px;
         font-size: 0.75rem;
-        font-weight: 500;
-        letter-spacing: 0.3px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
     .status-triagem {
-        background: rgba(251, 191, 36, 0.15);
-        color: #fbbf24;
-        border: 1px solid rgba(251, 191, 36, 0.3);
+        background: #fffbeb;
+        color: #d97706;
+        border: 1px solid #fde68a;
     }
     .status-consulta {
-        background: rgba(6, 214, 160, 0.15);
-        color: #06d6a0;
-        border: 1px solid rgba(6, 214, 160, 0.3);
+        background: #f0fdfa;
+        color: #0d9488;
+        border: 1px solid #99f6e4;
     }
+    /* CORES DE URGÊNCIA */
+    .status-verde { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .status-amarelo { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+    .status-vermelho { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
     /* ===== ALERTAS STREAMLIT ===== */
     div[data-testid="stAlert"] {
-        background: rgba(239, 68, 68, 0.1) !important;
-        border: 1px solid rgba(239, 68, 68, 0.3) !important;
+        background: #fef2f2 !important;
+        border: 1px solid #fecaca !important;
         border-radius: 12px !important;
-        color: #fca5a5 !important;
+        color: #b91c1c !important;
     }
 
     /* ===== BOTÕES SIDEBAR ===== */
     section[data-testid="stSidebar"] button {
-        background: rgba(56, 189, 248, 0.08) !important;
-        border: 1px solid rgba(56, 189, 248, 0.25) !important;
+        background: #ffffff !important;
+        border: 1px solid #5eead4 !important;
         border-radius: 12px !important;
-        color: #38bdf8 !important;
-        font-weight: 500 !important;
+        color: #0d9488 !important;
+        font-weight: 600 !important;
         font-family: 'Inter', sans-serif !important;
-        padding: 0.5rem 1rem !important;
+        padding: 0.6rem 1rem !important;
         transition: all 0.3s ease !important;
     }
     section[data-testid="stSidebar"] button:hover {
-        background: rgba(56, 189, 248, 0.15) !important;
-        border-color: rgba(56, 189, 248, 0.4) !important;
-        box-shadow: 0 0 16px rgba(56, 189, 248, 0.15) !important;
-        transform: translateY(-1px);
+        background: #f0fdfa !important;
+        border-color: #0d9488 !important;
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15) !important;
+        transform: translateY(-2px);
     }
     section[data-testid="stSidebar"] button:active {
         transform: translateY(0);
@@ -300,6 +333,7 @@ st.markdown("""
     <p class="subtitle"><span class="pulse-dot"></span>Apoio e aconselhamento inspirado na Linha Saúde 24</p>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 # ============================================================
@@ -370,6 +404,25 @@ if "messages" not in st.session_state:
 if "triagem_resumo" not in st.session_state:
     st.session_state.triagem_resumo = None
 
+def calcular_urgencia_atual():
+    if "nivel_urgencia" in st.session_state and st.session_state.nivel_urgencia == "Vermelho":
+        return "Vermelho"
+        
+    historico = " ".join([m["content"] for m in st.session_state.messages if m["role"] == "user"]).lower()
+    import agent_validator
+    tem_urgencia = any(termo in historico for termo in agent_validator.TERMOS_URGENCIA)
+    
+    if tem_urgencia:
+        st.session_state.nivel_urgencia = "Vermelho"
+        return "Vermelho"
+        
+    if st.session_state.fase == "consulta" and st.session_state.dados.get("queixa"):
+        st.session_state.nivel_urgencia = "Amarelo"
+        return "Amarelo"
+        
+    st.session_state.nivel_urgencia = "Verde"
+    return "Verde"
+
 
 # ============================================================
 # 5. SIDEBAR COM INFORMAÇÃO DO DOENTE
@@ -417,16 +470,47 @@ with st.sidebar:
         status = "consulta" if fase == "consulta" else "triagem"
         badge_class = "status-consulta" if fase == "consulta" else "status-triagem"
         label = "Em Consulta" if fase == "consulta" else "Triagem em Curso"
+        
+        urgencia = calcular_urgencia_atual()
+        urg_class = "status-verde" if urgencia == "Verde" else "status-amarelo" if urgencia == "Amarelo" else "status-vermelho"
+        urg_label = "🟢 Risco Baixo" if urgencia == "Verde" else "🟡 Avaliação" if urgencia == "Amarelo" else "🔴 EMERGÊNCIA"
+
         st.markdown(f"""
         <div class="sidebar-card">
-            <h4>Estado</h4>
-            <span class="status-badge {badge_class}">{label}</span>
+            <h4>Estado & Risco</h4>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span class="status-badge {badge_class}">{label}</span>
+                <span class="status-badge {urg_class}">{urg_label}</span>
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("")  # Espaço
     if st.button("🔄 Nova Triagem", use_container_width=True, key="nova_triagem"):
-        for key in ["messages", "fase", "dados", "triagem_resumo"]:
+        # 1. GUARDAR LOG DA SESSÃO ATUAL ANTES DE LIMPAR
+        if len(st.session_state.messages) > 1:
+            import json, os
+            from datetime import datetime
+            log_file = "logs_triagem.json"
+            logs = []
+            if os.path.exists(log_file):
+                try:
+                    with open(log_file, "r", encoding="utf-8") as f:
+                        logs = json.load(f)
+                except:
+                    pass
+            novo_log = {
+                "timestamp": datetime.now().isoformat(),
+                "doente": st.session_state.dados,
+                "urgencia": st.session_state.get("nivel_urgencia", "Indeterminada"),
+                "mensagens": st.session_state.messages
+            }
+            logs.append(novo_log)
+            with open(log_file, "w", encoding="utf-8") as f:
+                json.dump(logs, f, indent=4, ensure_ascii=False)
+                
+        # 2. LIMPAR SESSÃO PARA RECOMEÇAR
+        for key in ["messages", "fase", "dados", "triagem_resumo", "nivel_urgencia"]:
             if key in st.session_state:
                 del st.session_state[key]
         st.rerun()
@@ -467,10 +551,15 @@ if prompt := st.chat_input("Descreva o que está a sentir..."):
         st.session_state.dados["nome_idade"] = prompt
 
         # ---- DETEÇÃO DE GÉNERO PELO NOME ----
-        # Extrai o primeiro nome e infere o género
-        # Regra geral do português: nomes acabados em -a = feminino, -o = masculino
-        nome_completo = prompt.strip().split(",")[0].strip()  # "Deolinda, 57 anos" -> "Deolinda"
-        primeiro_nome = nome_completo.split()[0].strip().capitalize() if nome_completo else ""
+        # ---- DETEÇÃO DE NOME E GÉNERO (Nlp Básico) ----
+        import re
+        texto_limpo = re.sub(r'[^\w\s]', ' ', prompt.lower())
+        stop_words = {"eu", "sou", "o", "a", "chamo", "me", "meu", "nome", "é", "e", "tenho", "anos", "de", "idade", "olá", "ola", "bom", "dia", "boa", "tarde", "noite"}
+        
+        palavras = texto_limpo.split()
+        palavras_nome = [p for p in palavras if p not in stop_words and not p.isdigit()]
+        
+        primeiro_nome = palavras_nome[0].capitalize() if palavras_nome else "Utente"
 
         # Nomes masculinos comuns que acabam em -a (exceções)
         nomes_masc_excecao = {"nikita", "josefa", "andrea"}

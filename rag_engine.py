@@ -79,8 +79,8 @@ def criar_base_vetorial(caminho_txt):
 
     # Gerar o primeiro embedding para detetar automaticamente a dimensão do vetor
     print("[3/4] A detetar a dimensao dos embeddings...")
-    resposta_teste = ollama.embeddings(model=MODELO_EMBEDDINGS, prompt=chunks[0])
-    dimensao_vetor = len(resposta_teste['embedding'])
+    resposta_teste = ollama.embed(model=MODELO_EMBEDDINGS, input=chunks[0])
+    dimensao_vetor = len(resposta_teste.embeddings[0])
     print(f"      Dimensao detetada: {dimensao_vetor}")
 
     # Inicializa o FAISS (usando a distância L2)
@@ -91,8 +91,8 @@ def criar_base_vetorial(caminho_txt):
     # Passar os chunks para vetores
     for i, chunk in enumerate(chunks):
         try:
-            resposta = ollama.embeddings(model=MODELO_EMBEDDINGS, prompt=chunk)
-            embedding = np.array([resposta['embedding']], dtype='float32')
+            resposta = ollama.embed(model=MODELO_EMBEDDINGS, input=chunk)
+            embedding = np.array([resposta.embeddings[0]], dtype='float32')
 
             index.add(embedding)
             documentos_originais.append({"id": i, "texto": chunk})
@@ -128,8 +128,8 @@ def pesquisar_no_rag(pergunta_utilizador, k=3):
         return "⚠️ A base de dados RAG está vazia. Execute primeiro: python rag_engine.py"
 
     # A pergunta também é enviada e passada para vetor
-    resposta = ollama.embeddings(model=MODELO_EMBEDDINGS, prompt=pergunta_utilizador)
-    embedding_pergunta = np.array([resposta['embedding']], dtype='float32')
+    resposta = ollama.embed(model=MODELO_EMBEDDINGS, input=pergunta_utilizador)
+    embedding_pergunta = np.array([resposta.embeddings[0]], dtype='float32')
 
     # É calculada a semelhança/proximidade entre os pontos vetoriais
     # Limita k ao número real de documentos para evitar erros

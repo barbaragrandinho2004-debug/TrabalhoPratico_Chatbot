@@ -1,0 +1,25 @@
+[
+    {
+        "timestamp": "2026-05-17T17:25:35.614605",
+        "doente": {
+            "nome_idade": "Sou a Bárbara e tenho 21 anos",
+            "nome": "Sou",
+            "genero": "neutro"
+        },
+        "urgencia": "Verde",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa tarde! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome e a sua idade**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Sou a Bárbara e tenho 21 anos"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado(a), Sou! Fico contente por poder ajudar.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            }
+        ]
+    }
+]
