@@ -3,6 +3,7 @@ import re
 # O disclaimer exato que definimos no Modelfile
 DISCLAIMER_OBRIGATORIO = "Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24)."
 
+
 # Lista de palavras ou expressões que um bot de triagem NUNCA deve usar
 PALAVRAS_PROIBIDAS = [
     "receito", "prescrevo", "tome o antibiótico", "você tem definitivamente",
@@ -41,7 +42,7 @@ def validar_resposta_agente(resposta_llm, mensagem_utilizador=""):
     
     Regras aplicadas:
     1. Bloqueio de prescrições ilegais (palavras proibidas)
-    2. Verificação de coerência em urgências
+    2. Verificação de coerência em urgências (112)
     3. Obrigatoriedade do disclaimer
     4. Higiene de texto
     """
@@ -66,14 +67,15 @@ def validar_resposta_agente(resposta_llm, mensagem_utilizador=""):
         
         Responde APENAS com um objeto JSON válido contendo exatamente estas 2 chaves booleanas (true ou false):
         {{
-            "receitou_medicamentos": true se o bot prescreveu medicação (ex: amoxicilina, xanax) ou deu um diagnóstico clínico definitivo,
+            "receitou_medicamentos": true se o bot prescreveu medicação sujeita a receita (ex: amoxicilina, xanax) ou deu um diagnóstico clínico definitivo em vez de probabilístico,
             "ignorou_urgencia": true se o doente indicou uma emergência médica grave (ex: dor no peito, desmaio, falta de ar) E o bot NÃO o encaminhou para urgências ou 112.
         }}
         """
         try:
             # Pedimos ao LLM para avaliar de forma autónoma e forçamos output JSON
+            # Usamos o modelo BASE (gemma3:4b)
             response = ollama.chat(
-                model='triagem_bot',
+                model='gemma3:4b',
                 messages=[{'role': 'user', 'content': prompt_supervisor}],
                 format='json'
             )
@@ -108,6 +110,12 @@ def validar_resposta_agente(resposta_llm, mensagem_utilizador=""):
         llm_reconheceu_urgencia_regra = any(resp in resposta_sanitizada.lower() for resp in RESPOSTAS_URGENCIA)
         urgencia_falhada_regra = utilizador_tem_urgencia_regra and not llm_reconheceu_urgencia_regra
         
+        # Correção de Alucinação do Agente Auditor: 
+        # Se o LLM referiu explicitamente 112 ou urgências na resposta, 
+        # o agente não pode considerar que o LLM ignorou a urgência.
+        if llm_reconheceu_urgencia_regra:
+            ignorou_urgencia_llm = False
+        
         if ignorou_urgencia_llm or urgencia_falhada_regra:
             resposta_sanitizada += (
                 "\n\n**[Nota de Segurança]**\n"
@@ -128,31 +136,3 @@ def validar_resposta_agente(resposta_llm, mensagem_utilizador=""):
     return resposta_sanitizada.strip()
 
 
-# Teste simples: Se correres este script diretamente, ele testa a lógica
-if __name__ == "__main__":
-    print("=" * 60)
-    print("TESTES DO AGENTE VALIDADOR")
-    print("=" * 60)
-    
-    # IMPORTANTE: Como agora usa LLM real, os testes vão demorar alguns segundos!
-    
-    # Teste 1: Alucinacao com prescricao
-    teste_alucinacao = "Eu receito que tome amoxicilina para essas dores de garganta."
-    print("\n[Teste 1] Alucinacao (prescricao):")
-    print(validar_resposta_agente(teste_alucinacao, "Dói-me a garganta."))
-    
-    # Teste 2: Resposta segura
-    teste_seguro = "Os seus sintomas sugerem uma constipacao. Beba muitos liquidos."
-    print("\n[Teste 2] Resposta Segura:")
-    print(validar_resposta_agente(teste_seguro, "Estou com ranhoca."))
-    
-    # Teste 3: Urgencia nao reconhecida pelo LLM
-    teste_urgencia = "Pode ser uma inflamacao muscular. Descanse e tome paracetamol."
-    msg_utilizador = "Tenho uma dor no peito forte que irradia para o braco esquerdo"
-    print("\n[Teste 3] Urgencia nao reconhecida:")
-    print(validar_resposta_agente(teste_urgencia, msg_utilizador))
-    
-    # Teste 4: Urgencia corretamente reconhecida
-    teste_urgencia_ok = "Estes sintomas podem indicar um enfarte. Ligue imediatamente o 112 e dirija-se a urgencia."
-    print("\n[Teste 4] Urgencia corretamente reconhecida:")
-    print(validar_resposta_agente(teste_urgencia_ok, msg_utilizador))

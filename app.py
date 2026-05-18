@@ -149,6 +149,13 @@ st.markdown("""
         box-shadow: none !important;
     }
 
+    /* Ocultar a caixa de chat flutuante quando o separador Dashboard (2º separador) está ativo */
+    /* Ocultar a caixa de chat flutuante quando o separador Dashboard (2º separador) está ativo */
+    .stApp:has(button[id*="-tab-1"][aria-selected="true"]) [data-testid="stBottom"],
+    .stApp:has(div[data-testid="stTabs"] button:nth-of-type(2)[aria-selected="true"]) [data-testid="stBottom"] {
+        display: none !important;
+    }
+
     /* Container base do input */
     div[data-testid="stChatInput"] {
         background: transparent !important;
@@ -247,6 +254,31 @@ st.markdown("""
         padding: 1rem;
         margin-bottom: 1rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+    
+    /* ===== METRICAS DASHBOARD ===== */
+    .metric-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        text-align: center;
+        border-top: 4px solid #1abc9c;
+        height: 130px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .metric-value {
+        font-size: 32px;
+        font-weight: 800;
+        color: #006666;
+    }
+    .metric-label {
+        font-size: 14px;
+        color: #7f8c8d;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     .sidebar-card h4 {
         color: #0d9488 !important;
@@ -392,7 +424,7 @@ if "messages" not in st.session_state:
             f"{_saudacao()}! Bem-vindo(a) ao serviço de triagem virtual.\n\n"
             "Sou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber "
             "melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\n"
-            "Para começarmos, podia dizer-me **o seu nome e a sua idade**, por favor?"
+            "Para começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
         )}
     ]
     # Fases: "identificacao" -> "consulta"
@@ -408,11 +440,17 @@ def calcular_urgencia_atual():
     if "nivel_urgencia" in st.session_state and st.session_state.nivel_urgencia == "Vermelho":
         return "Vermelho"
         
-    historico = " ".join([m["content"] for m in st.session_state.messages if m["role"] == "user"]).lower()
+    historico_user = " ".join([m["content"] for m in st.session_state.messages if m["role"] == "user"]).lower()
+    historico_bot = " ".join([m["content"] for m in st.session_state.messages if m["role"] == "assistant"]).lower()
     import agent_validator
-    tem_urgencia = any(termo in historico for termo in agent_validator.TERMOS_URGENCIA)
     
-    if tem_urgencia:
+    # Emergência pelo texto explícito do doente
+    tem_urgencia = any(termo in historico_user for termo in agent_validator.TERMOS_URGENCIA)
+    
+    # Emergência deduzida autonomamente pelo LLM Auditor (LLM-as-a-judge)
+    agente_decretou_emergencia = "[nota de segurança]" in historico_bot
+    
+    if tem_urgencia or agente_decretou_emergencia:
         st.session_state.nivel_urgencia = "Vermelho"
         return "Vermelho"
         
@@ -430,64 +468,96 @@ def calcular_urgencia_atual():
 with st.sidebar:
     st.markdown("### Ficha do Doente")
 
-    dados = st.session_state.dados
-    fase = st.session_state.fase
+    # Placeholder APENAS para os dados mutáveis (Estado, Identificação, Risco)
+    dados_placeholder = st.empty()
 
-    if fase == "identificacao":
-        st.markdown("""
-        <div class="sidebar-card">
-            <h4>Estado</h4>
-            <span class="status-badge status-triagem">Triagem Inicial</span>
-            <p style="margin-top: 0.6rem;">A aguardar identificação do doente...</p>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        # Mostrar dados já recolhidos
-        nome_idade = dados.get("nome_idade", "---")
-        st.markdown(f"""
-        <div class="sidebar-card">
-            <h4>Identificação</h4>
-            <p>{nome_idade}</p>
-        </div>
-        """, unsafe_allow_html=True)
+    def atualizar_sidebar():
+        with dados_placeholder.container():
+            dados = st.session_state.dados
+            fase = st.session_state.fase
 
-        if dados.get("queixa"):
-            st.markdown(f"""
-            <div class="sidebar-card">
-                <h4>Queixa Principal</h4>
-                <p>{dados['queixa'][:120]}{'...' if len(dados.get('queixa','')) > 120 else ''}</p>
-            </div>
-            """, unsafe_allow_html=True)
+            if fase == "identificacao":
+                st.markdown("""
+                <div class="sidebar-card">
+                    <h4>Estado</h4>
+                    <span class="status-badge status-triagem">Triagem Inicial</span>
+                    <p style="margin-top: 0.6rem;">A aguardar identificação do doente...</p>
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                nome_idade = dados.get("nome_idade", "---")
+                st.markdown(f"""
+                <div class="sidebar-card">
+                    <h4>Identificação</h4>
+                    <p>{nome_idade}</p>
+                </div>
+                """, unsafe_allow_html=True)
 
-        if dados.get("condicoes"):
-            st.markdown(f"""
-            <div class="sidebar-card">
-                <h4>Histórico / Alergias</h4>
-                <p>{dados['condicoes'][:120]}{'...' if len(dados.get('condicoes','')) > 120 else ''}</p>
-            </div>
-            """, unsafe_allow_html=True)
+                if dados.get("queixa"):
+                    st.markdown(f"""
+                    <div class="sidebar-card">
+                        <h4>Queixa Principal</h4>
+                        <p>{dados['queixa'][:120]}{'...' if len(dados.get('queixa','')) > 120 else ''}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
 
-        status = "consulta" if fase == "consulta" else "triagem"
-        badge_class = "status-consulta" if fase == "consulta" else "status-triagem"
-        label = "Em Consulta" if fase == "consulta" else "Triagem em Curso"
-        
-        urgencia = calcular_urgencia_atual()
-        urg_class = "status-verde" if urgencia == "Verde" else "status-amarelo" if urgencia == "Amarelo" else "status-vermelho"
-        urg_label = "🟢 Risco Baixo" if urgencia == "Verde" else "🟡 Avaliação" if urgencia == "Amarelo" else "🔴 EMERGÊNCIA"
+                if dados.get("condicoes"):
+                    st.markdown(f"""
+                    <div class="sidebar-card">
+                        <h4>Histórico / Alergias</h4>
+                        <p>{dados['condicoes'][:120]}{'...' if len(dados.get('condicoes','')) > 120 else ''}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
 
-        st.markdown(f"""
-        <div class="sidebar-card">
-            <h4>Estado & Risco</h4>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <span class="status-badge {badge_class}">{label}</span>
-                <span class="status-badge {urg_class}">{urg_label}</span>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+                status = "consulta" if fase == "consulta" else "triagem"
+                badge_class = "status-consulta" if fase == "consulta" else "status-triagem"
+                label = "Em Consulta" if fase == "consulta" else "Triagem em Curso"
+                
+                urgencia = calcular_urgencia_atual()
+                urg_class = "status-verde" if urgencia == "Verde" else "status-amarelo" if urgencia == "Amarelo" else "status-vermelho"
+                urg_label = "🟢 Risco Baixo" if urgencia == "Verde" else "🟡 Avaliação" if urgencia == "Amarelo" else "🔴 EMERGÊNCIA"
 
+                st.markdown(f"""
+                <div class="sidebar-card">
+                    <h4>Estado & Risco</h4>
+                    <div class="status-box">
+                        <span class="status-badge {badge_class}">{label}</span>
+                        <span class="status-badge {urg_class}">{urg_label}</span>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                st.markdown("<hr style='margin: 1.5rem 0; border-color: rgba(26,188,156,0.2);'>", unsafe_allow_html=True)
+
+    # O Botão e Rodapé ficam FORA do placeholder, para serem desenhados apenas 1 vez (evitando o DuplicateKey error),
+    # mas mantêm exatamente a mesma posição na interface!
+    st.markdown("")  # Espaço
+    
+    # --- NOVO: BOTÃO DE EXPORTAR PDF ---
+    if st.session_state.fase == "consulta" and len(st.session_state.messages) > 1:
+        import pdf_generator
+        try:
+            urgencia_pdf = st.session_state.get("nivel_urgencia", "Indeterminada")
+            pdf_bytes = pdf_generator.gerar_pdf_triagem(
+                dados=st.session_state.dados,
+                mensagens=st.session_state.messages,
+                urgencia=urgencia_pdf
+            )
+            nome_ficheiro = st.session_state.dados.get("nome", "Doente")
+            st.download_button(
+                label="📄 Exportar Triagem em PDF",
+                data=pdf_bytes,
+                file_name=f"Relatorio_Triagem_{nome_ficheiro}.pdf",
+                mime="application/pdf",
+                use_container_width=True
+            )
+        except Exception as e:
+            pass
+
+    # O Botão e Rodapé ficam FORA do placeholder, para serem desenhados apenas 1 vez (evitando o DuplicateKey error),
+    # mas mantêm exatamente a mesma posição na interface!
     st.markdown("")  # Espaço
     if st.button("🔄 Nova Triagem", use_container_width=True, key="nova_triagem"):
-        # 1. GUARDAR LOG DA SESSÃO ATUAL ANTES DE LIMPAR
         if len(st.session_state.messages) > 1:
             import json, os
             from datetime import datetime
@@ -509,10 +579,10 @@ with st.sidebar:
             with open(log_file, "w", encoding="utf-8") as f:
                 json.dump(logs, f, indent=4, ensure_ascii=False)
                 
-        # 2. LIMPAR SESSÃO PARA RECOMEÇAR
         for key in ["messages", "fase", "dados", "triagem_resumo", "nivel_urgencia"]:
             if key in st.session_state:
                 del st.session_state[key]
+        st.session_state.switch_to_chat_tab = True
         st.rerun()
 
     st.markdown("---")
@@ -523,217 +593,349 @@ with st.sidebar:
         unsafe_allow_html=True
     )
 
+# Renderização inicial rápida
+atualizar_sidebar()
+
+
+
+
 
 # ============================================================
-# 6. MOSTRAR HISTÓRICO DE MENSAGENS
+# TABS (CHAT E DASHBOARD)
 # ============================================================
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
+tab_chat, tab_dashboard = st.tabs(['💬 Chat Triagem', '📊 Dashboard Métricas'])
+
+with tab_dashboard:
+    import json, os
+    import pandas as pd
+    import plotly.express as px
+    st.markdown('Bem-vindo ao painel de controlo. Aqui pode monitorizar em tempo real o volume e as características das triagens realizadas pelo Chatbot.')
+    LOG_FILE = 'logs_triagem.json'
+    if not os.path.exists(LOG_FILE):
+        st.info('Ainda não existem registos suficientes.')
+    else:
+        try:
+            with open(LOG_FILE, 'r', encoding='utf-8') as f:
+                df = pd.DataFrame(json.load(f))
+            if df.empty:
+                st.info('Ainda não existem registos suficientes.')
+            else:
+                df['timestamp'] = pd.to_datetime(df['timestamp'])
+                df['Data'] = df['timestamp'].dt.date
+                df['Genero'] = df['doente'].apply(lambda x: x.get('genero', 'N/A').capitalize() if isinstance(x, dict) else 'N/A')
+                col1, col2, col3, col4 = st.columns(4)
+                total = len(df)
+                emergencias = len(df[df['urgencia'] == 'Vermelho'])
+                avaliacoes = len(df[df['urgencia'] == 'Amarelo'])
+                risco_baixo = len(df[df['urgencia'] == 'Verde'])
+                
+                with col1:
+                    st.markdown(f'<div class="metric-card"><div class="metric-value">{total}</div><div class="metric-label">Total de Triagens</div></div>', unsafe_allow_html=True)
+                with col2:
+                    st.markdown(f'<div class="metric-card" style="border-top-color: #e74c3c;"><div class="metric-value" style="color: #c0392b;">{emergencias}</div><div class="metric-label">Emergências (112)</div></div>', unsafe_allow_html=True)
+                with col3:
+                    st.markdown(f'<div class="metric-card" style="border-top-color: #f1c40f;"><div class="metric-value" style="color: #f39c12;">{avaliacoes}</div><div class="metric-label">Em Avaliação</div></div>', unsafe_allow_html=True)
+                with col4:
+                    st.markdown(f'<div class="metric-card" style="border-top-color: #2ecc71;"><div class="metric-value" style="color: #27ae60;">{risco_baixo}</div><div class="metric-label">Risco Baixo</div></div>', unsafe_allow_html=True)
+                
+                st.markdown('<hr>', unsafe_allow_html=True)
+                
+                # Extrair idades e faixas etárias
+                import re
+                def get_age(x):
+                    if isinstance(x, dict) and 'nome_idade' in x:
+                        m = re.search(r'\d+', x['nome_idade'])
+                        return int(m.group(0)) if m else 0
+                    return 0
+                
+                df['Idade'] = df['doente'].apply(get_age)
+                def cat_age(a):
+                    if a == 0: return 'N/A'
+                    if a < 18: return '< 18'
+                    if a <= 35: return '18-35'
+                    if a <= 50: return '36-50'
+                    if a <= 65: return '51-65'
+                    return '> 65'
+                df['Faixa Etária'] = df['Idade'].apply(cat_age)
+                
+                # Renomear coluna para ter acento
+                df['Género'] = df['Genero']
+                
+                c1, c2 = st.columns(2)
+                cores = {'Vermelho': '#e74c3c', 'Amarelo': '#f1c40f', 'Verde': '#2ecc71'}
+                
+                c1.markdown('**Nível de Gravidade**')
+                fig1 = px.pie(df, names='urgencia', color='urgencia', color_discrete_map=cores, hole=0.4)
+                fig1.update_layout(margin=dict(t=10, b=10, l=10, r=10))
+                c1.plotly_chart(fig1, use_container_width=True)
+                
+                c2.markdown('**Evolução Diária**')
+                vol = df.groupby('Data').size().reset_index(name='Triagens')
+                fig2 = px.bar(vol, x='Data', y='Triagens', color_discrete_sequence=['#1abc9c'])
+                fig2.update_layout(margin=dict(t=10, b=10, l=10, r=10))
+                c2.plotly_chart(fig2, use_container_width=True)
+                
+                c3, c4 = st.columns(2)
+                
+                c3.markdown('**Casos por Género**')
+                fig3 = px.histogram(df, x='Género', color='Género', color_discrete_sequence=['#3498db', '#e84393', '#95a5a6'])
+                fig3.update_layout(margin=dict(t=10, b=10, l=10, r=10), showlegend=False)
+                c3.plotly_chart(fig3, use_container_width=True)
+                
+                c4.markdown('**Casos por Faixa Etária**')
+                ordem_idades = ['< 18', '18-35', '36-50', '51-65', '> 65', 'N/A']
+                fig4 = px.histogram(df, x='Faixa Etária', color_discrete_sequence=['#9b59b6'], category_orders={'Faixa Etária': ordem_idades})
+                fig4.update_layout(margin=dict(t=10, b=10, l=10, r=10))
+                c4.plotly_chart(fig4, use_container_width=True)
+                
+                st.markdown('<hr>', unsafe_allow_html=True)
+                st.markdown('**Últimos Registos Clínicos**')
+                df_tab = df.copy()
+                df_tab['Paciente'] = df_tab['doente'].apply(lambda x: x.get('nome_idade', '') if isinstance(x, dict) else '')
+                df_tab['Queixa'] = df_tab['doente'].apply(lambda x: x.get('queixa', '')[:50]+'...' if isinstance(x, dict) else '')
+                df_tab['Data'] = df_tab['timestamp'].dt.strftime('%d/%m %H:%M')
+                df_tab['Urgência'] = df_tab['urgencia']
+                st.dataframe(df_tab[['Data', 'Paciente', 'Queixa', 'Urgência']].tail(10).iloc[::-1], hide_index=True, use_container_width=True)
+        except Exception as e:
+            st.error(f'Erro ao carregar dashboard: {e}')
 
 
 # ============================================================
-# 7. LÓGICA PRINCIPAL — INPUT DO UTILIZADOR
+# 7. INPUT DO UTILIZADOR (NA RAIZ PARA FLUTUAR)
 # ============================================================
-if prompt := st.chat_input("Descreva o que está a sentir..."):
+prompt = st.chat_input("Descreva o que está a sentir...")
 
-    # Mostrar mensagem do utilizador
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
+with tab_chat:
+    # ============================================================
+    # 6. MOSTRAR HISTÓRICO DE MENSAGENS
+    # ============================================================
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
 
-    fase = st.session_state.fase
 
-    # ----------------------------------------------------------
-    # FASE 1: IDENTIFICAÇÃO (nome e idade)
-    # ----------------------------------------------------------
-    if fase == "identificacao":
-        st.session_state.dados["nome_idade"] = prompt
+# ============================================================
+    if prompt:
 
-        # ---- DETEÇÃO DE GÉNERO PELO NOME ----
-        # ---- DETEÇÃO DE NOME E GÉNERO (Nlp Básico) ----
-        import re
-        texto_limpo = re.sub(r'[^\w\s]', ' ', prompt.lower())
-        stop_words = {"eu", "sou", "o", "a", "chamo", "me", "meu", "nome", "é", "e", "tenho", "anos", "de", "idade", "olá", "ola", "bom", "dia", "boa", "tarde", "noite"}
-        
-        palavras = texto_limpo.split()
-        palavras_nome = [p for p in palavras if p not in stop_words and not p.isdigit()]
-        
-        primeiro_nome = palavras_nome[0].capitalize() if palavras_nome else "Utente"
+        # Mostrar mensagem do utilizador
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
 
-        # Nomes masculinos comuns que acabam em -a (exceções)
-        nomes_masc_excecao = {"nikita", "josefa", "andrea"}
-        # Nomes femininos comuns que não acabam em -a
-        nomes_fem_excecao = {"ines", "inês", "raquel", "isabel", "beatriz", "leonor",
-                             "alice", "filipa", "carmen", "pilar", "flor", "mercedes"}
+        fase = st.session_state.fase
 
-        nome_lower = primeiro_nome.lower()
-        if nome_lower in nomes_masc_excecao:
-            genero = "masculino"
-        elif nome_lower in nomes_fem_excecao or nome_lower.endswith("a"):
-            genero = "feminino"
-        elif nome_lower.endswith(("o", "os")):
-            genero = "masculino"
-        else:
-            genero = "neutro"
+        # ----------------------------------------------------------
+        # FASE 1: IDENTIFICAÇÃO (nome e idade)
+        # ----------------------------------------------------------
+        if fase == "identificacao":
+            # ---- DETEÇÃO DE NOME E GÉNERO (Nlp Básico) ----
+            import re
+            texto_limpo = re.sub(r'[^\w\s]', ' ', prompt.lower())
+            stop_words = {"eu", "sou", "o", "a", "chamo", "me", "meu", "nome", "é", "e", "tenho", "anos", "de", "idade", "olá", "ola", "bom", "dia", "boa", "tarde", "noite", "genero", "género", "sexo", "como"}
+            
+            palavras = texto_limpo.split()
+            palavras_nome = [p for p in palavras if p not in stop_words and not p.isdigit() and p not in ["mulher", "homem", "feminino", "masculino", "rapariga", "rapaz"]]
+            
+            primeiro_nome = palavras_nome[0].capitalize() if palavras_nome else "Utente"
+            
+            idade_match = re.search(r'\d+', prompt)
+            idade_str = idade_match.group(0) if idade_match else "?"
+            
+            st.session_state.dados["nome_idade"] = f"{primeiro_nome}, {idade_str} anos"
 
-        st.session_state.dados["nome"] = primeiro_nome
-        st.session_state.dados["genero"] = genero
-        st.session_state.fase = "consulta"
+            # Extrair género com base nas palavras do utilizador
+            if any(w in texto_limpo for w in ["mulher", "feminino", "rapariga", "menina", "senhora", "ela"]):
+                genero = "feminino"
+            elif any(w in texto_limpo for w in ["homem", "masculino", "rapaz", "menino", "senhor", "ele"]):
+                genero = "masculino"
+            else:
+                genero = "neutro"
 
-        # Adaptar a mensagem ao género
-        if genero == "feminino":
-            ajuda = "ajudá-la"
-            obrigado = "obrigada"
-        elif genero == "masculino":
-            ajuda = "ajudá-lo"
-            obrigado = "obrigado"
-        else:
-            ajuda = "ajudar"
-            obrigado = "obrigado(a)"
+            st.session_state.dados["nome"] = primeiro_nome
+            st.session_state.dados["genero"] = genero
+            st.session_state.fase = "consulta"
 
-        resposta = (
-            f"Muito {obrigado}, {primeiro_nome}! Fico contente por poder {ajuda}.\n\n"
-            f"Agora preciso de perceber o que se passa consigo. "
-            f"**Descreva-me o que está a sentir**, incluindo há quanto tempo "
-            f"começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n"
-            f"*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
-        )
+            # Atualizar sidebar antes de o bot escrever para não haver atraso visual
+            atualizar_sidebar()
 
-        with st.chat_message("assistant"):
-            st.markdown(resposta)
-        st.session_state.messages.append({"role": "assistant", "content": resposta})
+            # Adaptar a mensagem ao género
+            if genero == "feminino":
+                ajuda = "ajudá-la"
+                obrigado = "obrigada"
+            elif genero == "masculino":
+                ajuda = "ajudá-lo"
+                obrigado = "obrigado"
+            else:
+                ajuda = "ajudá-lo(a)"
+                obrigado = "obrigado(a)"
 
-    # ----------------------------------------------------------
-    # FASE 2: CONSULTA (conversa com RAG + LLM + Triagem do TXT)
-    # O LLM recebe SEMPRE o histórico completo da conversa,
-    # por isso NUNCA repete perguntas que o utilizador já respondeu.
-    # ----------------------------------------------------------
-    elif fase == "consulta":
-        with st.chat_message("assistant"):
-            placeholder = st.empty()
-            placeholder.markdown("*A consultar protocolos clínicos...*")
-
-            # Guardar a queixa principal (primeira vez que o doente fala dos sintomas)
-            if "queixa" not in st.session_state.dados:
-                st.session_state.dados["queixa"] = prompt
-
-            # ---- PESQUISA RAG (k=2 para ser mais rápido) ----
-            contexto_medico = pesquisar_rag_rapido(prompt, k=2)
-
-            # ---- CONSTRUIR CONTEXTO ----
-            dados = st.session_state.dados
-            genero = dados.get("genero", "neutro")
-            nome = dados.get("nome", "")
-            resumo = (
-                "DADOS DE TRIAGEM DO DOENTE:\n"
-                f"- Identificação: {dados.get('nome_idade', 'Não fornecido')}\n"
-                f"- Nome: {nome}\n"
-                f"- Género: {genero} (IMPORTANTE: usa terminações {'femininas (-a, -ada)' if genero == 'feminino' else 'masculinas (-o, -ado)' if genero == 'masculino' else 'neutras'} ao referir-te ao doente)\n"
+            resposta = (
+                f"Muito {obrigado}, {primeiro_nome}! Fico contente por poder {ajuda}.\n\n"
+                f"Agora preciso de perceber o que se passa consigo. "
+                f"**Descreva-me o que está a sentir**, incluindo há quanto tempo "
+                f"começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n"
+                f"*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
             )
-            if dados.get("queixa"):
-                resumo += f"- Queixa inicial: {dados['queixa']}\n"
 
-            st.session_state.triagem_resumo = resumo
+            with st.chat_message("assistant"):
+                st.markdown(resposta)
+            st.session_state.messages.append({"role": "assistant", "content": resposta})
 
-            prompt_llm = (
-                f"{resumo}\n\n"
-                f"PROTOCOLOS CLÍNICOS RELEVANTES (RAG):\n{contexto_medico}\n\n"
-                f"O QUE O DOENTE DISSE AGORA:\n{prompt}"
-            )
+        # ----------------------------------------------------------
+        # FASE 2: CONSULTA (conversa com RAG + LLM + Triagem do TXT)
+        # O LLM recebe SEMPRE o histórico completo da conversa,
+        # por isso NUNCA repete perguntas que o utilizador já respondeu.
+        # ----------------------------------------------------------
+        elif fase == "consulta":
+            with st.chat_message("assistant"):
+                placeholder = st.empty()
+                placeholder.markdown("*A consultar protocolos clínicos...*")
 
-            # ---- HISTÓRICO (últimas 10 mensagens para não sobrecarregar) ----
-            historico = st.session_state.messages[:-1]
-            if len(historico) > 10:
-                historico = historico[-10:]
+                # Guardar a queixa principal (primeira vez que o doente fala dos sintomas)
+                if "queixa" not in st.session_state.dados:
+                    st.session_state.dados["queixa"] = prompt
 
-            mensagens_llm = [
-                {"role": m["role"], "content": m["content"]} for m in historico
-            ]
-            mensagens_llm.append({"role": "user", "content": prompt_llm})
+                # Atualizar sidebar ANTES do LLM começar a pensar, para refletir já a nova urgência!
+                atualizar_sidebar()
 
-            # ---- STREAMING COM INDICADOR ANIMADO ----
-            # O LLM demora a processar o contexto antes de emitir o 1º token.
-            # Usamos uma thread para que o UI possa mostrar uma animação
-            # enquanto espera, e o utilizador saiba que está a funcionar.
-            import threading, queue, itertools
+                # ---- PESQUISA RAG (k=2 para ser mais rápido) ----
+                contexto_medico = pesquisar_rag_rapido(prompt, k=2)
 
-            fases_espera = itertools.cycle([
-                "A analisar os seus sintomas",
-                "A analisar os seus sintomas.",
-                "A analisar os seus sintomas..",
-                "A analisar os seus sintomas...",
-                "A consultar protocolos clínicos",
-                "A consultar protocolos clínicos.",
-                "A consultar protocolos clínicos..",
-                "A consultar protocolos clínicos...",
-            ])
+                # ---- CONSTRUIR CONTEXTO ----
+                dados = st.session_state.dados
+                genero = dados.get("genero", "neutro")
+                nome = dados.get("nome", "")
+                resumo = (
+                    "DADOS DE TRIAGEM DO DOENTE:\n"
+                    f"- Identificação: {dados.get('nome_idade', 'Não fornecido')}\n"
+                    f"- Nome: {nome}\n"
+                    f"- Género: {genero} (IMPORTANTE: usa terminações {'femininas (-a, -ada)' if genero == 'feminino' else 'masculinas (-o, -ado)' if genero == 'masculino' else 'neutras'} ao referir-te ao doente)\n"
+                )
+                if dados.get("queixa"):
+                    resumo += f"- Queixa inicial: {dados['queixa']}\n"
 
-            token_queue = queue.Queue()
+                st.session_state.triagem_resumo = resumo
 
-            def gerar_resposta():
-                """Thread que chama o LLM e coloca tokens na fila."""
-                try:
-                    stream = ollama.chat(
-                        model='triagem_bot',
-                        messages=mensagens_llm,
-                        stream=True
-                    )
-                    for chunk in stream:
-                        token_queue.put(chunk['message']['content'])
-                    token_queue.put(None)  # Fim do stream
-                except Exception as e:
-                    token_queue.put(e)
+                prompt_llm = (
+                    f"{resumo}\n\n"
+                    f"PROTOCOLOS CLÍNICOS RELEVANTES (RAG):\n{contexto_medico}\n\n"
+                    f"O QUE O DOENTE DISSE AGORA:\n{prompt}"
+                )
 
-            thread = threading.Thread(target=gerar_resposta, daemon=True)
-            thread.start()
+                # ---- HISTÓRICO (últimas 10 mensagens para não sobrecarregar) ----
+                historico = st.session_state.messages[:-1]
+                if len(historico) > 10:
+                    historico = historico[-10:]
 
-            # Enquanto não chega o 1º token, anima o indicador
-            resposta_llm = ""
-            primeiro_token_recebido = False
-            try:
-                while True:
+                mensagens_llm = [
+                    {"role": m["role"], "content": m["content"]} for m in historico
+                ]
+                mensagens_llm.append({"role": "user", "content": prompt_llm})
+
+
+                # ---- STREAMING COM INDICADOR ANIMADO ----
+                # O LLM demora a processar o contexto antes de emitir o 1º token.
+                # Usamos uma thread para que o UI possa mostrar uma animação
+                # enquanto espera, e o utilizador saiba que está a funcionar.
+                import threading, queue, itertools
+
+                fases_espera = itertools.cycle([
+                    "A analisar os seus sintomas",
+                    "A analisar os seus sintomas.",
+                    "A analisar os seus sintomas..",
+                    "A analisar os seus sintomas...",
+                    "A consultar protocolos clínicos",
+                    "A consultar protocolos clínicos.",
+                    "A consultar protocolos clínicos..",
+                    "A consultar protocolos clínicos...",
+                ])
+
+                token_queue = queue.Queue()
+
+                def gerar_resposta():
+                    """Thread que chama o LLM e coloca tokens na fila."""
                     try:
-                        item = token_queue.get(timeout=0.3)
-                        if item is None:
-                            break
-                        if isinstance(item, Exception):
-                            raise item
-                        primeiro_token_recebido = True
-                        resposta_llm += item
-                        placeholder.markdown(resposta_llm + " ▌")
-                        break
-                    except queue.Empty:
-                        # Ainda sem tokens — mostra animação
-                        placeholder.markdown(f"*{next(fases_espera)}*")
+                        stream = ollama.chat(
+                            model='triagem_bot',
+                            messages=mensagens_llm,
+                            stream=True
+                        )
+                        for chunk in stream:
+                            token_queue.put(chunk['message']['content'])
+                        token_queue.put(None)  # Fim do stream
+                    except Exception as e:
+                        token_queue.put(e)
 
-                # Continuar o streaming — texto aparece palavra a palavra
-                if primeiro_token_recebido:
+                thread = threading.Thread(target=gerar_resposta, daemon=True)
+                thread.start()
+
+                # Enquanto não chega o 1º token, anima o indicador
+                resposta_llm = ""
+                primeiro_token_recebido = False
+                try:
                     while True:
                         try:
-                            item = token_queue.get(timeout=5.0)
+                            item = token_queue.get(timeout=0.3)
                             if item is None:
                                 break
                             if isinstance(item, Exception):
                                 raise item
+                            primeiro_token_recebido = True
                             resposta_llm += item
                             placeholder.markdown(resposta_llm + " ▌")
-                        except queue.Empty:
                             break
+                        except queue.Empty:
+                            # Ainda sem tokens — mostra animação
+                            placeholder.markdown(f"*{next(fases_espera)}*")
 
-            except Exception as e:
-                placeholder.empty()
-                st.error(
-                    f"Não foi possível contactar o modelo. "
-                    f"Verifique que o Ollama está a correr e que o modelo 'triagem_bot' existe.\n\n"
-                    f"Erro: {e}"
+                    # Continuar o streaming — texto aparece palavra a palavra
+                    if primeiro_token_recebido:
+                        while True:
+                            try:
+                                item = token_queue.get(timeout=5.0)
+                                if item is None:
+                                    break
+                                if isinstance(item, Exception):
+                                    raise item
+                                resposta_llm += item
+                                placeholder.markdown(resposta_llm + " ▌")
+                            except queue.Empty:
+                                break
+
+                except Exception as e:
+                    placeholder.empty()
+                    st.error(
+                        f"Não foi possível contactar o modelo. "
+                        f"Verifique que o Ollama está a correr e que o modelo 'triagem_bot' existe.\n\n"
+                        f"Erro: {e}"
+                    )
+                    st.stop()
+
+                # ---- VALIDAÇÃO DO AGENTE DE SEGURANÇA ----
+                resposta_final = agent_validator.validar_resposta_agente(
+                    resposta_llm,
+                    mensagem_utilizador=prompt
                 )
-                st.stop()
+                placeholder.markdown(resposta_final)
+                st.session_state.messages.append({"role": "assistant", "content": resposta_final})
 
-            # ---- VALIDAÇÃO DO AGENTE DE SEGURANÇA ----
-            resposta_final = agent_validator.validar_resposta_agente(
-                resposta_llm,
-                mensagem_utilizador=prompt
-            )
-            placeholder.markdown(resposta_final)
-            st.session_state.messages.append({"role": "assistant", "content": resposta_final})
+# Renderizar a sidebar por último para garantir que tem o estado mais atualizado
+atualizar_sidebar()
+
+# ============================================================
+# 8. HACKS E UTILITÁRIOS (JS INJECTIONS)
+# ============================================================
+if st.session_state.get("switch_to_chat_tab"):
+    st.session_state.switch_to_chat_tab = False
+    import streamlit.components.v1 as components
+    components.html("""
+    <script>
+        // Atrasar ligeiramente para garantir que o DOM do Streamlit carregou totalmente
+        setTimeout(function() {
+            const tabs = window.parent.document.querySelectorAll('div[data-testid="stTabs"] button');
+            if (tabs.length > 0) {
+                tabs[0].click();
+            }
+        }, 100);
+    </script>
+    """, height=0)

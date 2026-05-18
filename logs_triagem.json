@@ -1,12 +1,13 @@
 [
     {
-        "timestamp": "2026-05-17T17:25:35.614605",
+        "timestamp": "2026-05-17T20:13:37.928853",
         "doente": {
-            "nome_idade": "Sou a Bárbara e tenho 21 anos",
-            "nome": "Sou",
-            "genero": "neutro"
+            "nome_idade": "Bárbara, 21 anos",
+            "nome": "Bárbara",
+            "genero": "feminino",
+            "queixa": "Tenho imensa dificuldade em respirar, sinto que vou perder os sentidos"
         },
-        "urgencia": "Verde",
+        "urgencia": "Vermelho",
         "mensagens": [
             {
                 "role": "assistant",
@@ -14,11 +15,202 @@
             },
             {
                 "role": "user",
-                "content": "Sou a Bárbara e tenho 21 anos"
+                "content": "Bárbara, 21 anos"
             },
             {
                 "role": "assistant",
-                "content": "Muito obrigado(a), Sou! Fico contente por poder ajudar.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+                "content": "Muito obrigada, Bárbara! Fico contente por poder ajudá-la.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Tenho imensa dificuldade em respirar, sinto que vou perder os sentidos"
+            },
+            {
+                "role": "assistant",
+                "content": "Compreendo, Bárbara. A sua dificuldade em respirar e a sensação de que vai perder os sentidos são sintomas muito preocupantes.\n\nPrimeiramente, preciso de saber: **tem diagnóstico de asma ou de alguma outra doença respiratória?** Já usou algum medicamento para ajudar a respirar, como um inalador?\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "nao tenho diagnostico de asma e nunca usei nenhum medicamento, foi algo repentino"
+            },
+            {
+                "role": "assistant",
+                "content": "Entendo, Bárbara. A sua dificuldade repentina em respirar é preocupante.\n\nAgora, preciso de mais algumas informações para avaliar a situação.\n\n**1. Pode descrever a dor que sente no peito?** É uma dor aguda, constante, em queiro, ou de outro tipo?\n\n**2. A dificuldade em respirar está relacionada com algum esforço físico, ou acontece mesmo em repouso?**\n\n**3. Além da dificuldade em respirar e da sensação de que vai perder os sentidos, tem mais algum sintoma?** Por exemplo, tosse, dor de garganta, febre, dor de cabeça, dor muscular, falta de apetite, etc.\n\n*Pode descrever tudo com o máximo de detalhes possível.*\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo."
+            },
+            {
+                "role": "user",
+                "content": "Está a acontecer em repouso, estava no sofá a ver televisão e tive esta dor, está a ser uma dor constante, alem da falta de ar, sinto uma pressao e dor muito grande no peito"
+            },
+            {
+                "role": "assistant",
+                "content": "Bárbara, a sua descrição é muito importante. A dor constante no peito, a falta de ar e a pressão que sente são sinais que não podemos ignorar.\n\nCom base nos seus sintomas e na informação que me forneceu, a situação parece ser muito grave.\n\n**Vamos seguir o Protocolo 1 - Enfarte Agudo do Miocárdio (Ataque Cardíaco) - Triagem.**\n\n**As perguntas de triagem para este protocolo são:**\n\n*   A dor no peito parece um aperto ou peso forte?\n*   A dor desce pelo braço esquerdo ou sobe para o pescoço?\n*   Tem suores frios e náuseas?\n\n**Por favor, responda a estas perguntas com o máximo de detalhes possível.**\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo."
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-17T20:54:15.705940",
+        "doente": {
+            "nome_idade": "Bruna, 18 anos",
+            "nome": "Bruna",
+            "genero": "neutro"
+        },
+        "urgencia": "Verde",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa noite! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Olá! Sou a Bruna e tenho 18 anos"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado(a), Bruna! Fico contente por poder ajudá-lo(a).\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-17T23:51:30.187506",
+        "doente": {
+            "nome_idade": "António, 52 anos",
+            "nome": "António",
+            "genero": "neutro",
+            "queixa": "Tossi muito durante o dia e já saiu sangue"
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa noite! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Eu sou o António e tenho 52 anos"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado(a), António! Fico contente por poder ajudá-lo(a).\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Tossi muito durante o dia e já saiu sangue"
+            },
+            {
+                "role": "assistant",
+                "content": "Compreendo, António. A tosse com sangue é uma situação que precisa de ser avaliada com cuidado.\n\nPara me ajudar a entender melhor o que se passa, gostaria de fazer algumas perguntas:\n\n1.  **A cor do sangue é vermelha clara ou mais escura?** (Por exemplo, vermelho vivo, vermelho escuro, ou com traços de borra?)\n2.  **A tosse é seca ou produtiva?** (Ou seja, tossindo apenas, ou tossindo com catarro/expectoração?) Se tiver catarro, pode descrever a sua cor e consistência?\n3.  **A dor no peito é constante ou intermitente?** E se sim, o que a agrava ou alivia?\n4.  **Tem febre?** Se sim, qual a sua temperatura?\n5.  **Tem alguma outra queixa associada?** (Por exemplo, falta de ar, cansaço, dor de garganta, dor de cabeça, etc.)\n\nPor favor, responda a estas perguntas com o máximo de detalhes possível.\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "a cor do sangue é vermelho vivo, e a tosse é seca, nao tenho catarro apenas tosse seca mas quando tusso sai sangue. Tenho uma dor no peito constante, mas nao tenho febre."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado(a), António, por fornecer estas informações.\n\nCom base no que me descreveu, a cor do sangue vermelho vivo e a tosse seca com sangramento, juntamente com a dor no peito constante, levanta algumas preocupações.\n\n**[Avaliação Clínica Preliminar]**\n\nOs seus sintomas são compatíveis com vários cenários, incluindo:\n\n*   **Pneumonia:** A tosse seca com sangue, especialmente com dor no peito, pode ser um sinal de inflamação nos pulmões.\n*   **Bronquite:** Embora menos provável com sangramento, a bronquite pode causar tosse seca e, em alguns casos, sangramento.\n*   **Outras causas:** É importante considerar outras possibilidades, como problemas nas vias aéreas superiores ou, em casos raros, problemas cardíacos.\n\n**[Próximos Passos]**\n\nConsiderando a natureza do sangramento e a dor no peito, a situação parece ser **grave**.\n\nRecomendo urgentemente que:\n\n*   **Procure atendimento médico imediato.** Dirija-se ao **Serviço de Urgência** mais próximo ou ligue para o **112**.\n*   **Informe ao médico** todos os sintomas que tem sentido, incluindo a cor do sangue, a tosse seca e a dor no peito.\n\n**[Recomendações Adicionais]**\n\n*   Evite esforço físico excessivo.\n*   Mantenha-se hidratado(a).\n\n**[Importante]**\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T00:58:13.333100",
+        "doente": {
+            "nome_idade": "António, 52 anos",
+            "nome": "António",
+            "genero": "neutro",
+            "queixa": "Tossi muito durante o dia e já saiu sangue"
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa noite! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Eu sou o António e tenho 52 anos"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado(a), António! Fico contente por poder ajudá-lo(a).\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Tossi muito durante o dia e já saiu sangue"
+            },
+            {
+                "role": "assistant",
+                "content": "Compreendo, António. A tosse com sangue é uma situação que precisa de ser avaliada com cuidado.\n\nPara me ajudar a entender melhor o que se passa, gostaria de fazer algumas perguntas:\n\n1.  **A cor do sangue é vermelha clara ou mais escura?** (Por exemplo, vermelho vivo, vermelho escuro, ou com traços de borra?)\n2.  **A tosse é seca ou produtiva?** (Ou seja, tossindo apenas, ou tossindo com catarro/expectoração?) Se tiver catarro, pode descrever a sua cor e consistência?\n3.  **A dor no peito é constante ou intermitente?** E se sim, o que a agrava ou alivia?\n4.  **Tem febre?** Se sim, qual a sua temperatura?\n5.  **Tem alguma outra queixa associada?** (Por exemplo, falta de ar, cansaço, dor de garganta, dor de cabeça, etc.)\n\nPor favor, responda a estas perguntas com o máximo de detalhes possível.\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T08:07:19.565793",
+        "doente": {
+            "nome_idade": "Carlos, 68 anos",
+            "nome": "Carlos",
+            "genero": "masculino",
+            "queixa": "Estou com uma dor muito forte no centro do peito que começou há cerca de meia hora. Sinto também que o meu braço esquerdo está dormente e estou com muita falta de ar e a suar frio."
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Bom dia! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Olá, o meu nome é Carlos, tenho 68 anos e sou homem"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado, Carlos! Fico contente por poder ajudá-lo.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Estou com uma dor muito forte no centro do peito que começou há cerca de meia hora. Sinto também que o meu braço esquerdo está dormente e estou com muita falta de ar e a suar frio."
+            },
+            {
+                "role": "assistant",
+                "content": "Carlos, a sua situação parece muito grave. A dor no peito, a dormência no braço esquerdo, a falta de ar e o suor frio são sintomas que merecem atenção imediata.\n\nCom base no que me descreve, e tendo em conta a sua idade e os sintomas que apresenta, a possibilidade de um Infarto Agudo do Miocárdio (Ataque Cardíaco) é alta.\n\n**O que deve fazer IMEDIATAMENTE:**\n\n*   **Ligue 112.** Não tente conduzir até ao hospital.\n*   Mantenha-se em repouso absoluto.\n*   Não coma ou beba nada.\n\nEstou a encaminhá-lo(a) para a equipa de emergência.\n\n**Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).**"
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T08:21:18.645598",
+        "doente": {
+            "nome_idade": "Maria, 32 anos",
+            "nome": "Maria",
+            "genero": "feminino",
+            "queixa": "Estou com febre de 39 graus desde ontem à noite. Tenho muita tosse seca, dores no corpo todo e a minha garganta parece que tem vidro quando engulo."
+        },
+        "urgencia": "Amarelo",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Bom dia! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Sou a Maria, tenho 32 anos e identifico-me como mulher"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigada, Maria! Fico contente por poder ajudá-la.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Estou com febre de 39 graus desde ontem à noite. Tenho muita tosse seca, dores no corpo todo e a minha garganta parece que tem vidro quando engulo."
+            },
+            {
+                "role": "assistant",
+                "content": "Compreendo, Maria. Uma febre de 39 graus, tosse seca, dores no corpo e dor de garganta são sintomas que precisam de atenção.\n\nPara me ajudar a avaliar a sua situação, gostaria de fazer algumas perguntas:\n\n1.  **Ao abrir a boca, consegue ver alguma coisa branca ou amarela na garganta?** (Esta informação é importante para diferenciarmos entre uma infeção viral e uma infeção bacteriana.)\n2.  **Acha impossível engolir líquidos ou engole a sua saliva com muita dificuldade?** (Este é um sinal importante de inflamação na garganta.)\n3.  **A febre tem sido constante ou tem oscilado?** (Saber se a febre está a subir ou a descer ajuda a determinar a gravidade.)\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "febre constante, sinto a boca branca, e custa me imenso engolir saliva"
+            },
+            {
+                "role": "assistant",
+                "content": "**[Intervenção do Agente de Segurança]**\nDetetei que a resposta gerada poderia conter sugestões de automedicação arriscada ou diagnósticos definitivos que ultrapassam o meu âmbito.\n\nPara sua segurança, peço que **contacte imediatamente o SNS 24 (808 24 24 24)** ou dirija-se a um posto de saúde para avaliação presencial."
             }
         ]
     }

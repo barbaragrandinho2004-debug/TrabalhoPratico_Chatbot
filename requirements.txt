@@ -9,3 +9,11 @@ numpy>=1.24.0
 
 # Motor RAG de pesquisa vetorial de alta performance
 faiss-cpu>=1.7.4
+
+# Geração do Relatório PDF
+fpdf2>=2.8.0
+
+# Análise de dados e Gráficos para o Dashboard
+pandas>=2.0.0
+plotly>=5.18.0
+
