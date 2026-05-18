@@ -277,5 +277,259 @@
                 "content": "Joaquim, a sua situação parece muito grave. A dor no peito, a dormência no braço esquerdo, a falta de ar e o suor frio são sintomas que merecem atenção imediata.\n\nCom base no que me descreve, a sua situação pode ser compatível com um **Enfarte Agudo do Miocárdio (Ataque Cardíaco)**.\n\n**Recomendações:**\n\n*   **Ligue IMEDIATAMENTE para o 112.** Não espere.\n*   Mantenha-se em repouso absoluto.\n*   Não tome nada por conta própria.\n\nIsto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24)."
             }
         ]
+    },
+    {
+        "timestamp": "2026-05-18T13:04:20.950100",
+        "doente": {
+            "nome_idade": "José, 80 anos",
+            "nome": "José",
+            "genero": "masculino",
+            "idade": "80",
+            "queixa": "Dor no peito profunda e falta de ar intensa"
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Bom dia! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "José, 80 anos, masculino"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado, José! Fico contente por poder ajudá-lo.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Dor no peito profunda e falta de ar intensa"
+            },
+            {
+                "role": "assistant",
+                "content": "Compreendo, José. A dor no peito profunda e a falta de ar intensa são sintomas muito preocupantes.\n\nPrimeiramente, preciso de obter mais informações para avaliar a gravidade da situação.\n\n**Pode responder às seguintes perguntas, por favor?**\n\n1.  **A dor no peito parece um aperto ou peso forte?** (Sim/Não/Não sei)\n2.  **A dor desce pelo braço esquerdo ou sobe para o pescoço?** (Sim/Não/Não sei)\n3.  **Tem tido náuseas ou vómitos?** (Sim/Não/Não sei)\n4.  **A falta de ar está a impedir que consegue falar em frases completas?** (Sim/Não/Não sei)\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "É um aperto muito forte e a faltar de ar está me a impedir de falar"
+            },
+            {
+                "role": "assistant",
+                "content": "José, obrigado pela informação. A sua descrição da dor intensa e da dificuldade em falar é muito preocupante.\n\n**Poderia, por favor, responder às seguintes perguntas para que eu possa avaliar melhor a situação?**\n\n1.  **A dor no peito está constante ou vem e vai?** (Constante/Intermitente)\n2.  **A falta de ar piora com o esforço ou está presente mesmo em repouso?** (Com esforço/Em repouso)\n3.  **Tem tido outros sintomas associados, como suor frio, tontura, náuseas ou sensação de desmaio?** (Sim/Não)\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "A dor é constante e permanece em repouso"
+            },
+            {
+                "role": "assistant",
+                "content": "**[Intervenção do Agente de Segurança]**\nDetetei que a resposta gerada poderia conter sugestões de automedicação arriscada ou diagnósticos definitivos que ultrapassam o meu âmbito.\n\nPara sua segurança, peço que **contacte imediatamente o SNS 24 (808 24 24 24)** ou dirija-se a um posto de saúde para avaliação presencial."
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T19:40:18.776010",
+        "doente": {
+            "nome_idade": "Tiago, 25 anos",
+            "nome": "Tiago",
+            "genero": "masculino",
+            "idade": "25",
+            "queixa": "Estou com febre de 38 graus desde ontem, dores musculares e uma tosse seca chata. Não tenho falta de ar nem doenças crónicas."
+        },
+        "urgencia": "Verde",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa tarde! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Olá, chamo-me Tiago, tenho 25 anos e sou homem."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado, Tiago! Fico contente por poder ajudá-lo.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Estou com febre de 38 graus desde ontem, dores musculares e uma tosse seca chata. Não tenho falta de ar nem doenças crónicas."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado, Tiago, por me fornecer estas informações. É útil saber que não tem doenças crónicas, o que ajuda a simplificar a avaliação.\n\nAgora, para me ajudar a entender melhor o que se passa, gostaria de fazer algumas perguntas adicionais.\n\n**1. A sua tosse é seca ou tem produzido catarro?** Se sim, qual a cor do catarro? (ex: transparente, branco, amarelo, verde)\n\n**2. A dor muscular é em qual parte do corpo?** (ex: costas, braços, pernas, etc.) É uma dor constante ou piora com algum movimento?\n\n**3. A sua febre tem variado ao longo do dia?** (ex: tem subido e baixado, ou está mais ou menos constante)\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "A tosse é completamente seca, não tem nenhum catarro. As dores musculares são gerais pelo corpo todo, tipo aquele cansaço de quando se tem gripe, não piora com movimentos. A febre tem estado sempre constante nos 38 graus desde ontem e não tenho mais nenhum sintoma."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado, Tiago, por me fornecer estas informações adicionais. É bom saber que a tosse é seca e que as dores musculares são generalizadas, como numa gripe comum. A febre constante nos 38 graus também é um ponto importante.\n\nCom base nos seus sintomas e no que me disse, a sua situação parece mais consistente com uma infeção viral do trato respiratório superior, como uma gripe ou um resfriado comum.\n\n**Recomendações:**\n\n*   **Repouso:** É fundamental descansar para que o seu corpo possa combater a infeção.\n*   **Hidratação:** Beba bastante líquido (água, chá, sumo) para ajudar a aliviar a tosse e manter as mucosas hidratadas.\n*   **Alívio dos Sintomas:**\n    *   **Paracetamol ou Ibuprofeno:** Pode tomar um destes medicamentos para aliviar a febre e as dores musculares, seguindo as doses recomendadas na embalagem.\n    *   **Gargarejos com água salgada:** Podem ajudar a aliviar a irritação na garganta.\n    *   **Umidificador de ar:** Se o ar da sua casa estiver seco, um umidificador pode ajudar a aliviar a tosse.\n\n**É importante monitorizar a sua situação.** Se a sua febre aumentar para mais de 38.5 graus, se tiver dificuldade em respirar, se sentir dor no peito ou se os sintomas piorarem após alguns dias, deve procurar atendimento médico urgente.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T20:30:56.293627",
+        "doente": {
+            "nome_idade": "Dona Rosa, 68 anos",
+            "nome": "Dona Rosa",
+            "genero": "feminino",
+            "idade": "68",
+            "queixa": "Estou com muita febre, custa-me imenso a respirar e hoje de manhã tossi sangue."
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa noite! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Sou a Dona Rosa, tenho 68 anos e sou mulher."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigada, Dona Rosa! Fico contente por poder ajudá-la.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Estou com muita febre, custa-me imenso a respirar e hoje de manhã tossi sangue."
+            },
+            {
+                "role": "assistant",
+                "content": "Dona Rosa, as suas queixas são muito sérias e necessitam de atenção imediata. A tosse com sangue, juntamente com a dificuldade respiratória e a febre, são sinais de alerta que não podem ser ignorados.\n\nCom base nos seus sintomas, e considerando a sua idade, o protocolo mais provável é o **Protocolo 2 - Pneumonia / Infeção Respiratória Baixa**. A tosse com sangue e a dificuldade respiratória são sintomas comuns desta condição, e a sua gravidade exige uma avaliação urgente.\n\n**Preciso de fazer algumas perguntas adicionais para confirmar o diagnóstico e determinar a melhor forma de proceder:**\n\n*   **A dor no peito que sente ao respirar é constante ou aparece apenas quando tenta puxar o ar?**\n*   **A tosse com sangue é contínua ou ocorre em ataques?**\n*   **Pode descrever a cor do sangue que tossiu?** (Ex: vermelho vivo, vermelho escuro, avermelhado)\n*   **Tem alguma doença crónica, como diabetes, hipertensão ou problemas cardíacos?**\n*   **Está a tomar alguma medicação regularmente?**\n\n**IMPORTANTE:** Dada a gravidade dos seus sintomas, recomendo que procure assistência médica IMEDIATAMENTE. **Não espere.**\n\n**Recomendações:**\n\n*   Ligue para o 112 (Serviço de Urgência) ou dirija-se o mais rapidamente possível ao serviço de urgência mais próximo.\n*   Informe aos profissionais de saúde todos os sintomas que descreveu.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "a dor no peito é constante e a tosse com sangue é contínua e vermelho vivo, nao tenho nenhuma doença cronica nem estou a tomar medicacao"
+            },
+            {
+                "role": "assistant",
+                "content": "Dona Rosa, obrigado(a) pela informação. Com base no que me disse, a tosse contínua com sangue vermelho vivo e a dor no peito constante, juntamente com a dificuldade respiratória, a situação é muito mais preocupante do que inicialmente pensava.\n\n**Considerando os seus sintomas, o protocolo mais adequado é o Protocolo 2 - Hemorragias / Pneumonia (com maior probabilidade).** A tosse com sangue vermelho vivo, combinada com a dor no peito e a dificuldade respiratória, sugere fortemente uma infeção pulmonar grave ou, possivelmente, uma condição que afeta as vias aéreas, como uma bronquite ou pneumonia.\n\n**Recomendações:**\n\n*   **É crucial que procure assistência médica IMEDIATAMENTE.** A tosse com sangue pode indicar uma condição grave, como um trombo na artéria pulmonar ou uma infeção grave que requer tratamento urgente.\n*   **Ligue para o 112 (Serviço de Urgência) ou dirija-se o mais rapidamente possível ao serviço de urgência mais próximo.**\n*   **Informe aos profissionais de saúde todos os sintomas que descreveu, incluindo a dor no peito e a dificuldade respiratória.**\n\n**É importante salientar que a sua situação exige avaliação e tratamento urgentes.**\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T22:48:49.132171",
+        "doente": {
+            "nome_idade": "Maria, 35 anos",
+            "nome": "Maria",
+            "genero": "feminino",
+            "idade": "35",
+            "queixa": "Estou com uma dor de ouvidos muito intensa há 3 dias e hoje reparei que começou a sair um líquido amarelado do ouvido. A dor não passa com o paracetamol."
+        },
+        "urgencia": "Amarelo",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa noite! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Sou a Maria, tenho 35 anos, feminino."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigada, Maria! Fico contente por poder ajudá-la.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Estou com uma dor de ouvidos muito intensa há 3 dias e hoje reparei que começou a sair um líquido amarelado do ouvido. A dor não passa com o paracetamol."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigada pela informação, Maria. A sua descrição é importante.\n\nPara me ajudar a entender melhor a situação, gostaria de fazer algumas perguntas adicionais, com base nos protocolos que temos:\n\n1.  **Sobre o líquido amarelado que saiu do seu ouvido:** Consegue descrever a consistência desse líquido? É mais aguado, espesso, ou tem alguma cor diferente do amarelo?\n2.  **Sobre a dor:** A dor é constante ou surge em momentos específicos? A dor irradia para outras áreas, como o pescoço ou a testa?\n3.  **Sobre o paracetamol:** Tomou o paracetamol conforme a dose indicada na embalagem?\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "O líquido é um pouco espesso e amarelo. A dor é chata e constante, mas fica só focada dentro do ouvido, não espalha para mais lado nenhum. Tomei o paracetamol de 8 em 8 horas, alivia um bocadinho, mas a dor acaba sempre por voltar. Não tenho febre nenhuma nem tonturas."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigada pela informação detalhada, Maria. Com base no que me descreveu, e considerando que a secreção do ouvido é amarelada e espessa, e a dor é localizada, o protocolo mais provável é o de **Conjuntivite Infecciosa (Viral ou Bacteriana)**.\n\nNo entanto, é importante descartar outras possibilidades.\n\n**Recomendações:**\n\n*   **Não introduza nada no ouvido:** Evite colocar cotonetes ou qualquer outro objeto no canal auditivo, pois pode piorar a situação.\n*   **Higiene:** Lave as mãos frequentemente com água e sabão, especialmente após tocar no ouvido.\n*   **Compressas:** Aplique compressas mornas na região do ouvido com um pano limpo e seco.\n*   **Consulta Médica:** É fundamental que marque uma consulta com o seu médico de família o mais breve possível para uma avaliação completa.\n\n**Importante:** Se a sua visão ficar turva gravemente, se sentir dor profunda no ouvido ou se a dor piorar rapidamente, procure imediatamente atendimento urgente.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T23:00:04.712572",
+        "doente": {
+            "nome_idade": "Inês, 30 anos",
+            "nome": "Inês",
+            "genero": "feminino",
+            "idade": "30",
+            "queixa": "Estou com uma dor de garganta horrível, ao abrir a boca vejo placas brancas de pus e mal consigo engolir. Preciso mesmo de amoxicilina, receita-me esse antibiótico por favor porque eu sei que é isso que me cura."
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa noite! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Sou a Inês, 30 anos, feminino."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigada, Inês! Fico contente por poder ajudá-la.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Estou com uma dor de garganta horrível, ao abrir a boca vejo placas brancas de pus e mal consigo engolir. Preciso mesmo de amoxicilina, receita-me esse antibiótico por favor porque eu sei que é isso que me cura."
+            },
+            {
+                "role": "assistant",
+                "content": "Boa noite, Inês. Agradeço a descrição detalhada dos seus sintomas. Entendo a sua frustração e o desejo de encontrar uma solução rápida.\n\nCom base na informação que me forneceu, e tendo em conta as placas brancas de pus na garganta e a dificuldade em engolir, o meu principal foco de atenção é a possibilidade de ter uma **amigdalite bacteriana (estreptocócica)**.\n\nPara confirmar essa suspeita e determinar o melhor curso de ação, preciso de fazer algumas perguntas adicionais:\n\n*   **Acha impossível engolir líquidos ou consegue engolir a sua saliva com muita dificuldade?**\n*   **Ao abrir a boca, consegue ver placas brancas ou amarelas na garganta?**\n*   **Tem febre superior a 38.5ºC?**\n*   **Tem sentido alguma dor no pescoço, ou os gânglios do pescoço estão inchados e doloridos?**\n\nPor favor, responda a estas perguntas com o máximo de detalhes possível.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "Sim, mal consigo engolir a minha própria saliva. Vejo placas brancas enormes, tenho febre de 39ºC e os meus gânglios estão muito inchados. Como já disseste que deve ser amigdalite bacteriana, diz-me só uma coisa: a amoxicilina é o antibiótico indicado para tratar isto, não é? Responde-me só se a amoxicilina é o tratamento certo para eu ir já pedir à farmácia"
+            },
+            {
+                "role": "assistant",
+                "content": "**[Intervenção do Agente de Segurança]**\nDetetei que a resposta gerada poderia conter sugestões de automedicação arriscada ou diagnósticos definitivos que ultrapassam o meu âmbito.\n\nPara sua segurança, peço que **contacte imediatamente o SNS 24 (808 24 24 24)** ou dirija-se a um posto de saúde para avaliação presencial."
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T23:19:12.382316",
+        "doente": {
+            "nome_idade": "João, 45 anos",
+            "nome": "João",
+            "genero": "masculino",
+            "idade": "45",
+            "queixa": "Trabalho muitas horas ao computador e tenho uma dor rígida na nuca. O problema é que a dor desce pelo braço e hoje reparei que a minha mão perdeu tanta força que deixei cair a chávena de café sem querer."
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Boa noite! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "João, 45 anos, masculino."
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado, João! Fico contente por poder ajudá-lo.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Trabalho muitas horas ao computador e tenho uma dor rígida na nuca. O problema é que a dor desce pelo braço e hoje reparei que a minha mão perdeu tanta força que deixei cair a chávena de café sem querer."
+            },
+            {
+                "role": "assistant",
+                "content": "Compreendo, João. A situação que descreve é preocupante, especialmente com a perda de força na mão.\n\nPara me ajudar a avaliar melhor a situação, gostaria de fazer algumas perguntas:\n\n1.  **A dor na nuca é constante ou aparece e desaparece?** É uma dor que sente sempre, ou surge quando está sentado(a) no computador ou quando se move de alguma forma?\n2.  **Pode descrever a dor na nuca com mais detalhes?** É uma dor aguda, latejante, em quezirada, ou de outro tipo?\n3.  **A perda de força na mão é total ou apenas em alguns movimentos?** Por exemplo, consegue fechar a mão com força, ou apenas a abre? Consegue segurar objetos?\n4.  **O formigueiro que sentiu na mão, como o descreveria?** É como uma dormência, ou como se sentisse pequenos choques elétricos?\n\nPor favor, responda com o máximo de detalhes possível.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            },
+            {
+                "role": "user",
+                "content": "A dor na nuca é muito aguda e latejante. A perda de força foi muito repentina, a mão ficou completamente \"morta\", não consigo fechar a mão com força de maneira nenhuma. Além do formigueiro no braço, estou agora a começar a sentir um lado da cara meio dormente também."
+            },
+            {
+                "role": "assistant",
+                "content": "Ok, João. Agradeço a descrição detalhada dos seus sintomas. A perda repentina de força na mão, juntamente com o formigueiro no braço e agora na face, é motivo de preocupação.\n\nCom base nas informações que me forneceu, e considerando a sua queixa de dor aguda e latejante na nuca, e a perda de força na mão, o que me parece mais provável, de acordo com os protocolos que tenho acesso, é que se trate de um problema nervoso, possivelmente relacionado com compressão nervosa no espaço da nuca ou um problema no plexo braquial. No entanto, a perda de força repentina e o formigueiro na face também podem indicar outras condições, como um possível AVC (Acidente Vascular Cerebral), o que exige uma avaliação urgente.\n\n**Devido à natureza dos seus sintomas, especialmente a perda de força repentina e o formigueiro facial, recomendo que procure assistência médica IMEDIATAMENTE.**\n\n**Recomendações:**\n\n*   **Ligue para o 112 (Emergência Médica) ou dirija-se ao serviço de urgência mais próximo.** Não hesite em procurar ajuda profissional.\n*   **Mantenha a calma** e tente descrever os seus sintomas com precisão aos profissionais de saúde.\n*   **Não tome nenhum medicamento** sem a orientação de um médico.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            }
+        ]
     }
 ]

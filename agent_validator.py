@@ -3,7 +3,6 @@ import re
 # O disclaimer exato que definimos no Modelfile
 DISCLAIMER_OBRIGATORIO = "Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24)."
 
-
 # Lista de palavras ou expressões que um bot de triagem NUNCA deve usar
 PALAVRAS_PROIBIDAS = [
     "receito", "prescrevo", "tome o antibiótico", "você tem definitivamente",
@@ -21,81 +20,34 @@ TERMOS_URGENCIA = [
     "dificuldade em respirar", "dificuldade a respirar", "custa a respirar", "custa-me a respirar",
     "não consigo respirar", "não consigo encher os pulmões",
     "perda de consciência", "desmaio", "desmaiei",
-    "convulsão", "convulsões", "sangue na tosse", "tossir sangue",
+    "convulsão", "convulsões", "sangue na tosse", "tossir sangue", "tossi sangue", "cuspi sangue",
     "inchaço da garganta", "garganta a fechar", "língua inchada",
     "visão turva", "deixei de ver", "paralisia", "perda de força", "não sinto o braço",
     "febre acima de 40", "febre superior a 40", "febre 40"
 ]
 
-# Frases que indicam que o LLM reconheceu a urgência (deve ter pelo menos uma)
-RESPOSTAS_URGENCIA = [
-    "112", "urgência", "urgencia", "emergência", "emergencia",
-    "hospital", "socorro", "imediatamente", "ligar",
-    "dirigir-se", "serviço de urgência", "servico de urgencia",
-]
 
+def contem_urgencia(texto):
+    """
+    Deteta urgência ignorando falsos positivos de negação.
+    Ex: 'Não tenho dor no peito' não ativa o alerta.
+    """
+    # Remove qualquer frase que comece por "não", "sem" ou "nega" até à próxima pontuação
+    texto_limpo = re.sub(r'\b(não|nao|sem|nega)\b.*?(?=[,.;\n]|$)', '', texto.lower())
+    return any(termo in texto_limpo for termo in TERMOS_URGENCIA)
 
 def validar_resposta_agente(resposta_llm, mensagem_utilizador=""):
-    """
-    Camada de Agentic AI: Avalia, sanitiza e corrige a resposta gerada 
-    pelo LLM antes de a devolver ao utilizador final.
-    
-    Regras aplicadas:
-    1. Bloqueio de prescrições ilegais (palavras proibidas)
-    2. Verificação de coerência em urgências (112)
-    3. Obrigatoriedade do disclaimer
-    4. Higiene de texto
-    """
-    import json
-    import ollama
-    
+
     resposta_sanitizada = resposta_llm
 
-    # =========================================================================
-    # CAMADA 1: VERDADEIRO AGENTIC AI (LLM-as-a-Judge)
-    # =========================================================================
-    # O Agente raciocina autonomamente sobre a conversa para detetar falhas
-    receitou_medicamentos_llm = False
-    ignorou_urgencia_llm = False
-    
-    if mensagem_utilizador:
-        prompt_supervisor = f"""
-        És um Agente Supervisor Médico (Auditor).
-        Analisa a seguinte interação entre um doente e um bot de triagem.
-        Doente: "{mensagem_utilizador}"
-        Bot: "{resposta_sanitizada}"
-        
-        Responde APENAS com um objeto JSON válido contendo exatamente estas 2 chaves booleanas (true ou false):
-        {{
-            "receitou_medicamentos": true se o bot prescreveu medicação sujeita a receita (ex: amoxicilina, xanax) ou deu um diagnóstico clínico definitivo em vez de probabilístico,
-            "ignorou_urgencia": true se o doente indicou uma emergência médica grave (ex: dor no peito, desmaio, falta de ar) E o bot NÃO o encaminhou para urgências ou 112.
-        }}
-        """
-        try:
-            # Pedimos ao LLM para avaliar de forma autónoma e forçamos output JSON
-            # Usamos o modelo BASE (gemma3:4b)
-            response = ollama.chat(
-                model='gemma3:4b',
-                messages=[{'role': 'user', 'content': prompt_supervisor}],
-                format='json'
-            )
-            # O agente toma as suas decisões (Agentic Reasoning)
-            resultado_agente = json.loads(response['message']['content'])
-            receitou_medicamentos_llm = resultado_agente.get('receitou_medicamentos', False)
-            ignorou_urgencia_llm = resultado_agente.get('ignorou_urgencia', False)
-        except Exception:
-            # Se o Agente falhar, recuamos para a camada determinística
-            pass
+    # Limpeza Inicial
+    resposta_sanitizada = re.sub(r'^(Assistant|Assistente|Bot):\s*', '', resposta_sanitizada, flags=re.IGNORECASE)
+    # Corta o disclaimer e TODO o lixo introdutório que esteja na mesma frase ("Lembre-se", "Atenção:")
+    # Ele recua até encontrar o ponto final da frase anterior ou o parágrafo anterior e apaga tudo a partir daí.
+    resposta_sanitizada = re.sub(r'(?is)(?:(?<=[.!?\n])|^)\s*[^\n.!?]*?isto não substitui uma consulta.*$', '', resposta_sanitizada).strip()
 
-    # =========================================================================
-    # AÇÃO DO AGENTE (Se detetar violações, intervém)
-    # =========================================================================
-    
-    # 1. VERIFICAÇÃO DE SEGURANÇA (Automedicação / Diagnóstico Ilegal)
-    # Combina a decisão autónoma do Agente com a lista de palavras proibidas (Fallback)
-    usou_palavra_proibida = any(p.lower() in resposta_sanitizada.lower() for p in PALAVRAS_PROIBIDAS)
-    
-    if receitou_medicamentos_llm or usou_palavra_proibida:
+    # 1. Barreira Determinística de Medicamentos
+    if any(p in resposta_sanitizada.lower() for p in PALAVRAS_PROIBIDAS):
         return (
             "**[Intervenção do Agente de Segurança]**\n"
             "Detetei que a resposta gerada poderia conter sugestões de automedicação "
@@ -104,35 +56,33 @@ def validar_resposta_agente(resposta_llm, mensagem_utilizador=""):
             "ou dirija-se a um posto de saúde para avaliação presencial."
         )
 
-    # 2. VERIFICAÇÃO DE COERÊNCIA EM URGÊNCIAS
-    if mensagem_utilizador:
-        utilizador_tem_urgencia_regra = any(termo in mensagem_utilizador.lower() for termo in TERMOS_URGENCIA)
-        llm_reconheceu_urgencia_regra = any(resp in resposta_sanitizada.lower() for resp in RESPOSTAS_URGENCIA)
-        urgencia_falhada_regra = utilizador_tem_urgencia_regra and not llm_reconheceu_urgencia_regra
-        
-        # Correção de Alucinação do Agente Auditor: 
-        # Se o LLM referiu explicitamente 112 ou urgências na resposta, 
-        # o agente não pode considerar que o LLM ignorou a urgência.
-        if llm_reconheceu_urgencia_regra:
-            ignorou_urgencia_llm = False
-        
-        if ignorou_urgencia_llm or urgencia_falhada_regra:
+    # 2. Barreira Determinística de Urgência (Só atua se o Python detetar perigo real)
+    if mensagem_utilizador and contem_urgencia(mensagem_utilizador):
+        bot_encaminhou = any(r in resposta_sanitizada.lower() for r in ["112", "urgência", "emergência", "hospital", "socorro"])
+        # Se o doente tem emergência e o bot não avisou, o Python corrige!
+        if not bot_encaminhou:
             resposta_sanitizada += (
                 "\n\n**[Nota de Segurança]**\n"
                 "Os sintomas que descreveu podem indicar uma situação que requer "
                 "avaliação médica urgente. Por favor, considere contactar o **112** "
                 "ou dirigir-se ao **Serviço de Urgência** mais próximo."
             )
+            
 
-    # 3. VERIFICAÇÃO DE FORMATAÇÃO (Obrigatoriedade do Disclaimer)
-    # Mesmo que o LLM se esqueça das regras do Modelfile, o Agente injeta o disclaimer.
-    if DISCLAIMER_OBRIGATORIO not in resposta_sanitizada:
-        resposta_sanitizada += f"\n\n---\n*{DISCLAIMER_OBRIGATORIO}*"
+    # 3. Formatação Final e Limpeza Profunda
+    
+    # 1. Limpar linhas que SÓ têm lixo (ex: asteriscos ou hífens sozinhos numa linha)
+    resposta_sanitizada = re.sub(r'(?m)^\s*[-•*]+\s*$', '', resposta_sanitizada)
+    
+    # 2. A tua ideia: Limpar "**" perdidos no final absoluto do texto, 
+    # MAS apenas se estiverem isolados (ou seja, têm um espaço antes, não estragando o negrito de uma palavra)
+    resposta_sanitizada = re.sub(r'(\s|^)[-•*]+\s*$', '', resposta_sanitizada)
+    
+    # Remove as linhas separadoras longas geradas pelo bot
+    resposta_sanitizada = re.sub(r'(?m)^-{3,}$', '', resposta_sanitizada)
+    
+    # Adiciona a NOSSA única linha separadora e o Disclaimer
+    resposta_sanitizada = resposta_sanitizada.strip()
+    resposta_sanitizada += f"\n\n---\n*{DISCLAIMER_OBRIGATORIO}*"
 
-    # 4. HIGIENE DE TEXTO
-    # Se o LLM começar a resposta com "Assistant:" ou "Bot:", limpamos isso para parecer mais natural
-    resposta_sanitizada = re.sub(r'^(Assistant|Assistente|Bot):\s*', '', resposta_sanitizada, flags=re.IGNORECASE)
-
-    return resposta_sanitizada.strip()
-
-
+    return resposta_sanitizada

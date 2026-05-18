@@ -22,9 +22,9 @@ st.markdown("""
     /* ===== RESET E BASE ===== */
     *, *::before, *::after { box-sizing: border-box; }
 
-    /* Fundo Principal: Clean Medical Mint/Teal (Sem degradês confusos, super profissional) */
+    /* Fundo Principal */
     html, body, .stApp, .stApp > header, [data-testid="stAppViewContainer"], .main {
-        background: #f0fdfa !important; /* Mint muito suave e uniforme */
+        background: #f0fdfa !important; 
         background-color: #f0fdfa !important;
         font-family: 'Inter', sans-serif !important;
         min-height: 100vh !important;
@@ -104,19 +104,16 @@ st.markdown("""
         transform: translateY(-2px);
     }
 
-    /* Mensagens do assistente */
     div[data-testid="stChatMessage"]:has(img[alt="assistant"]),
     div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
         border-left: 5px solid #0d9488 !important;
     }
 
-    /* Mensagens do utilizador */
     div[data-testid="stChatMessage"]:has(img[alt="user"]),
     div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
         border-left: 5px solid #0ea5e9 !important;
     }
 
-    /* Texto dentro das mensagens */
     div[data-testid="stChatMessage"] p,
     div[data-testid="stChatMessage"] li,
     div[data-testid="stChatMessage"] span {
@@ -128,17 +125,12 @@ st.markdown("""
     div[data-testid="stChatMessage"] strong {
         color: #0f766e !important;
     }
-    div[data-testid="stChatMessage"] em {
-        color: #64748b !important;
-    }
     div[data-testid="stChatMessage"] hr {
         border-color: rgba(13, 148, 136, 0.1) !important;
         margin: 1rem 0 !important;
     }
 
-    /* ===== CAIXA DE INPUT (FLUTUANTE, BRILHANTE E SEM RETANGULO) ===== */
-    
-    /* Ao forçar o transparente, ele vai mostrar a cor sólida super limpa da base (#f0fdfa) sem cortes! */
+    /* ===== CAIXA DE INPUT ===== */
     [data-testid="stBottom"], 
     [data-testid="stBottomBlockContainer"],
     .stChatFloatingInputContainer,
@@ -149,14 +141,11 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* Ocultar a caixa de chat flutuante quando o separador Dashboard (2º separador) está ativo */
-    /* Ocultar a caixa de chat flutuante quando o separador Dashboard (2º separador) está ativo */
     .stApp:has(button[id*="-tab-1"][aria-selected="true"]) [data-testid="stBottom"],
     .stApp:has(div[data-testid="stTabs"] button:nth-of-type(2)[aria-selected="true"]) [data-testid="stBottom"] {
         display: none !important;
     }
 
-    /* Container base do input */
     div[data-testid="stChatInput"] {
         background: transparent !important;
         background-color: transparent !important;
@@ -164,24 +153,19 @@ st.markdown("""
         padding: 0 2rem 2rem 2rem !important;
     }
     
-    /* A pílula de texto */
     div[data-testid="stChatInput"] > div {
         background: #ffffff !important;
         border: 1px solid rgba(13, 148, 136, 0.2) !important;
         border-radius: 30px !important;
         padding: 0.4rem 0.6rem !important;
         box-shadow: 0 10px 30px rgba(13, 148, 136, 0.08) !important;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     div[data-testid="stChatInput"] > div:focus-within {
         border-color: #0d9488 !important;
         box-shadow: 0 10px 40px rgba(13, 148, 136, 0.15) !important;
     }
     
-    /* Area de texto */
-    div[data-testid="stChatInput"] textarea,
-    div[data-testid="stChatInput"] textarea:focus,
-    div[data-testid="stChatInput"] textarea:active {
+    div[data-testid="stChatInput"] textarea {
         background: #ffffff !important;
         background-color: #ffffff !important;
         border: none !important;
@@ -194,11 +178,7 @@ st.markdown("""
         box-shadow: none !important;
         outline: none !important;
     }
-    div[data-testid="stChatInput"] textarea::placeholder {
-        color: #94a3b8 !important;
-    }
     
-    /* Botão de Enviar Redondo e Brilhante */
     div[data-testid="stChatInput"] button {
         background: linear-gradient(135deg, #0d9488, #0ea5e9) !important;
         border: none !important;
@@ -209,44 +189,25 @@ st.markdown("""
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        transition: all 0.3s ease !important;
         box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3) !important;
         margin-right: 4px !important;
     }
-    div[data-testid="stChatInput"] button:hover {
-        transform: scale(1.1) rotate(5deg) !important;
-        box-shadow: 0 6px 20px rgba(13, 148, 136, 0.5) !important;
-    }
-    div[data-testid="stChatInput"] button svg {
-        fill: #ffffff !important;
-    }
-
-    /* ===== SPINNER ===== */
-    .stSpinner > div {
-        border-top-color: #0d9488 !important;
-    }
-    .stSpinner > div > span {
-        color: #64748b !important;
-        font-size: 0.85rem !important;
-    }
+    div[data-testid="stChatInput"] button svg { fill: #ffffff !important; }
 
     /* ===== SIDEBAR ===== */
-    section[data-testid="stSidebar"] {
-        background: #ffffff !important;
-        background-color: #ffffff !important;
-        border-right: 1px solid rgba(13, 148, 136, 0.08) !important;
-        box-shadow: 2px 0 20px rgba(0,0,0,0.03) !important;
-    }
-    section[data-testid="stSidebar"] * {
-        color: #334155 !important;
-    }
+    /* Títulos da Sidebar (Ficha do Doente) */
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {
         color: #0f766e !important;
         font-weight: 600 !important;
     }
-
+    /* Layout da Sidebar */
+    section[data-testid="stSidebar"] {
+        background: #ffffff !important;
+        border-right: 1px solid rgba(13, 148, 136, 0.08) !important;
+        box-shadow: 2px 0 20px rgba(0,0,0,0.03) !important;
+    }
     .sidebar-card {
         background: #ffffff;
         border: 1px solid rgba(13, 148, 136, 0.15);
@@ -255,7 +216,65 @@ st.markdown("""
         margin-bottom: 1rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
-    
+    .sidebar-card h4 {
+        color: #0d9488 !important;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    .sidebar-card p {
+        color: #475569 !important;
+        font-size: 0.85rem;
+        margin: 0.2rem 0;
+        line-height: 1.6;
+    }
+
+    /* ===== STATUS BADGE ===== */
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .status-triagem { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+    .status-consulta { background: #f0fdfa; color: #0d9488; border: 1px solid #99f6e4; }
+    .status-verde { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .status-amarelo { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+    .status-vermelho { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+    /* CAIXA QUE ENVOLVE OS BADGES */
+    .status-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    /* ===== BOTÕES SIDEBAR ===== */
+    section[data-testid="stSidebar"] button {
+        background: #ffffff !important;
+        border: 1px solid #5eead4 !important;
+        border-radius: 12px !important;
+        color: #0d9488 !important;
+        font-weight: 600 !important;
+        font-family: 'Inter', sans-serif !important;
+        padding: 0.6rem 1rem !important;
+        transition: all 0.3s ease !important;
+    }
+    section[data-testid="stSidebar"] button:hover {
+        background: #f0fdfa !important;
+        border-color: #0d9488 !important;
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15) !important;
+        transform: translateY(-2px);
+    }
+
     /* ===== METRICAS DASHBOARD ===== */
     .metric-card {
         background-color: white;
@@ -280,92 +299,12 @@ st.markdown("""
         text-transform: uppercase;
         letter-spacing: 1px;
     }
-    .sidebar-card h4 {
-        color: #0d9488 !important;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-    .sidebar-card p {
-        color: #475569 !important;
-        font-size: 0.85rem;
-        margin: 0.2rem 0;
-        line-height: 1.6;
-    }
-    .sidebar-card .label {
-        color: #94a3b8 !important;
-        font-size: 0.75rem;
-    }
 
-    /* ===== STATUS BADGE ===== */
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    .status-triagem {
-        background: #fffbeb;
-        color: #d97706;
-        border: 1px solid #fde68a;
-    }
-    .status-consulta {
-        background: #f0fdfa;
-        color: #0d9488;
-        border: 1px solid #99f6e4;
-    }
-    /* CORES DE URGÊNCIA */
-    .status-verde { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-    .status-amarelo { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
-    .status-vermelho { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-
-    /* CAIXA QUE ENVOLVE OS BADGES */
-    .status-box {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 10px;
-    }
-
-    /* ===== ALERTAS STREAMLIT ===== */
-    div[data-testid="stAlert"] {
-        background: #fef2f2 !important;
-        border: 1px solid #fecaca !important;
-        border-radius: 12px !important;
-        color: #b91c1c !important;
-    }
-
-    /* ===== BOTÕES SIDEBAR ===== */
-    section[data-testid="stSidebar"] button {
-        background: #ffffff !important;
-        border: 1px solid #5eead4 !important;
-        border-radius: 12px !important;
-        color: #0d9488 !important;
-        font-weight: 600 !important;
-        font-family: 'Inter', sans-serif !important;
-        padding: 0.6rem 1rem !important;
-        transition: all 0.3s ease !important;
-    }
-    section[data-testid="stSidebar"] button:hover {
-        background: #f0fdfa !important;
-        border-color: #0d9488 !important;
-        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15) !important;
-        transform: translateY(-2px);
-    }
-    section[data-testid="stSidebar"] button:active {
-        transform: translateY(0);
-    }</style>
+</style>
 """, unsafe_allow_html=True)
 
 # ============================================================
-# 2. HEADER CUSTOM (substitui o título padrão do Streamlit)
+# 2. HEADER CUSTOM
 # ============================================================
 st.markdown("""
 <div class="custom-header">
@@ -374,249 +313,130 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
-
 # ============================================================
-# 3. CACHE DO RAG (evita recarregar FAISS do disco a cada mensagem)
+# 3. CACHE DO RAG E ESTADO
 # ============================================================
 @st.cache_resource(show_spinner=False)
 def carregar_rag():
-    """Carrega o índice FAISS e os documentos para memória uma única vez."""
-    import json
-    import faiss
+    import json, faiss
     try:
         index = faiss.read_index(rag_engine.FAISS_INDEX_FILE)
         with open(rag_engine.CHUNKS_JSON_FILE, "r", encoding="utf-8") as f:
-            documentos = json.load(f)
-        return index, documentos
-    except Exception:
+            return index, json.load(f)
+    except:
         return None, None
 
-# Pré-carregar o RAG ao iniciar
 _rag_index, _rag_docs = carregar_rag()
 
-
 def pesquisar_rag_rapido(pergunta, k=3):
-    """Pesquisa no RAG usando o índice já em memória (muito mais rápido)."""
     import numpy as np
-    if _rag_index is None or _rag_docs is None or _rag_index.ntotal == 0:
-        return ""
-
-    resposta = ollama.embeddings(model=rag_engine.MODELO_EMBEDDINGS, prompt=pergunta)
-    embedding = np.array([resposta['embedding']], dtype='float32')
-
-    k_real = min(k, _rag_index.ntotal)
-    distancias, indices = _rag_index.search(embedding, k_real)
-
+    if not _rag_index or not _rag_docs or _rag_index.ntotal == 0: return ""
+    resposta = ollama.embed(model=rag_engine.MODELO_EMBEDDINGS, input=pergunta)
+    embedding = np.array([resposta['embeddings'][0]], dtype='float32')
+    distancias, indices = _rag_index.search(embedding, min(k, _rag_index.ntotal))
     contexto = ""
     for idx, i in enumerate(indices[0]):
         if i != -1 and i < len(_rag_docs):
-            contexto += f"--- Protocolo {idx+1} ---\n"
-            contexto += _rag_docs[i]["texto"] + "\n\n"
+            contexto += f"--- Protocolo {idx+1} ---\n{_rag_docs[i]['texto']}\n\n"
     return contexto
 
-
-# ============================================================
-# 4. ESTADO DA SESSÃO
-# ============================================================
 import time as _time
 def _saudacao():
     h = _time.localtime().tm_hour
-    if h < 13: return "Bom dia"
-    elif h < 20: return "Boa tarde"
-    else: return "Boa noite"
+    return "Bom dia" if h < 13 else "Boa tarde" if h < 20 else "Boa noite"
 
 if "messages" not in st.session_state:
-    st.session_state.messages = [
-        {"role": "assistant", "content": (
-            f"{_saudacao()}! Bem-vindo(a) ao serviço de triagem virtual.\n\n"
-            "Sou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber "
-            "melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\n"
-            "Para começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
-        )}
-    ]
-    # Fases: "identificacao" -> "consulta"
-    # O utilizador diz o nome/idade, depois fala diretamente com o LLM
-    # O LLM recebe SEMPRE o histórico completo e nunca repete perguntas
+    st.session_state.messages = [{"role": "assistant", "content": f"{_saudacao()}! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"}]
     st.session_state.fase = "identificacao"
     st.session_state.dados = {}
 
-if "triagem_resumo" not in st.session_state:
-    st.session_state.triagem_resumo = None
-
 def calcular_urgencia_atual():
-    if "nivel_urgencia" in st.session_state and st.session_state.nivel_urgencia == "Vermelho":
-        return "Vermelho"
-        
-    historico_user = " ".join([m["content"] for m in st.session_state.messages if m["role"] == "user"]).lower()
-    historico_bot = " ".join([m["content"] for m in st.session_state.messages if m["role"] == "assistant"]).lower()
-    import agent_validator
-    
-    # Emergência pelo texto explícito do doente
-    tem_urgencia = any(termo in historico_user for termo in agent_validator.TERMOS_URGENCIA)
-    
-    # Emergência deduzida autonomamente pelo LLM Auditor (LLM-as-a-judge)
-    agente_decretou_emergencia = "[nota de segurança]" in historico_bot
-    
-    if tem_urgencia or agente_decretou_emergencia:
+    if len(st.session_state.messages) <= 1:
+        return "Verde"
+
+    # Encontrar a última mensagem do bot
+    ultima_msg_bot = ""
+    for msg in reversed(st.session_state.messages):
+        if msg["role"] == "assistant":
+            ultima_msg_bot = msg["content"].lower()
+            break
+
+    # 1. VERMELHO: Notas de Segurança ou encaminhamento hospitalar imediato
+    if "[nota de segurança]" in ultima_msg_bot or "[intervenção do agente" in ultima_msg_bot:
         st.session_state.nivel_urgencia = "Vermelho"
         return "Vermelho"
         
-    if st.session_state.fase == "consulta" and st.session_state.dados.get("queixa"):
+    if any(w in ultima_msg_bot for w in ["urgência", "emergência", "112", "hospital", "pronto-socorro"]):
+        st.session_state.nivel_urgencia = "Vermelho"
+        return "Vermelho"
+
+    # 2. AMARELO (Em Avaliação): O Bot está à espera de resposta ou a fazer perguntas
+    if st.session_state.messages[-1]["role"] == "user":
         st.session_state.nivel_urgencia = "Amarelo"
         return "Amarelo"
-        
-    st.session_state.nivel_urgencia = "Verde"
-    return "Verde"
 
+    if "?" in ultima_msg_bot or "perguntas" in ultima_msg_bot:
+        st.session_state.nivel_urgencia = "Amarelo"
+        return "Amarelo"
+
+    # 3. VERDE: Triagem Concluída com conselhos de autocuidado (e sem ser emergência)
+    if any(w in ultima_msg_bot for w in ["repouso", "hidratação", "paracetamol", "ibuprofeno", "analgésico"]):
+        st.session_state.nivel_urgencia = "Verde"
+        return "Verde"
+        
+    # 4. AMARELO (Default Final): Se não for emergência (Vermelho) nem autocuidado óbvio (Verde)
+    st.session_state.nivel_urgencia = "Amarelo"
+    return "Amarelo"
 
 # ============================================================
-# 5. SIDEBAR COM INFORMAÇÃO DO DOENTE
+# 4. SIDEBAR E PLACEHOLDERS
 # ============================================================
 with st.sidebar:
     st.markdown("### Ficha do Doente")
-
-    # Placeholder para os dados mutáveis (Estado, Identificação, Risco)
     dados_placeholder = st.empty()
-
-    def atualizar_sidebar():
-        with dados_placeholder.container():
-            dados = st.session_state.dados
-            fase = st.session_state.fase
-
-            if fase == "identificacao":
-                st.markdown("""
-                <div class="sidebar-card">
-                    <h4>Estado</h4>
-                    <span class="status-badge status-triagem">Triagem Inicial</span>
-                    <p style="margin-top: 0.6rem;">A aguardar identificação do doente...</p>
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                nome_idade = dados.get("nome_idade", "---")
-                st.markdown(f"""
-                <div class="sidebar-card">
-                    <h4>Identificação</h4>
-                    <p>{nome_idade}</p>
-                </div>
-                """, unsafe_allow_html=True)
-
-                if dados.get("queixa"):
-                    st.markdown(f"""
-                    <div class="sidebar-card">
-                        <h4>Queixa Principal</h4>
-                        <p>{dados['queixa'][:120]}{'...' if len(dados.get('queixa','')) > 120 else ''}</p>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                if dados.get("condicoes"):
-                    st.markdown(f"""
-                    <div class="sidebar-card">
-                        <h4>Histórico / Alergias</h4>
-                        <p>{dados['condicoes'][:120]}{'...' if len(dados.get('condicoes','')) > 120 else ''}</p>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                status = "consulta" if fase == "consulta" else "triagem"
-                badge_class = "status-consulta" if fase == "consulta" else "status-triagem"
-                label = "Em Consulta" if fase == "consulta" else "Triagem em Curso"
-                
-                urgencia = calcular_urgencia_atual()
-                urg_class = "status-verde" if urgencia == "Verde" else "status-amarelo" if urgencia == "Amarelo" else "status-vermelho"
-                urg_label = "🟢 Risco Baixo" if urgencia == "Verde" else "🟡 Avaliação" if urgencia == "Amarelo" else "🔴 EMERGÊNCIA"
-
-                st.markdown(f"""
-                <div class="sidebar-card">
-                    <h4>Estado & Risco</h4>
-                    <div class="status-box">
-                        <span class="status-badge {badge_class}">{label}</span>
-                        <span class="status-badge {urg_class}">{urg_label}</span>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                st.markdown("<hr style='margin: 1.5rem 0; border-color: rgba(26,188,156,0.2);'>", unsafe_allow_html=True)
-
-    # O Botão e Rodapé ficam FORA do placeholder, para serem desenhados apenas 1 vez (evitando o DuplicateKey error),
-    # mas mantêm exatamente a mesma posição na interface!
-    st.markdown("")  # Espaço
-    
-    # --- BOTÃO DE EXPORTAR PDF ---
-    if st.session_state.fase == "consulta" and len(st.session_state.messages) > 1:
-        import pdf_generator
-        try:
-            urgencia_pdf = st.session_state.get("nivel_urgencia", "Indeterminada")
-            pdf_bytes = pdf_generator.gerar_pdf_triagem(
-                dados=st.session_state.dados,
-                mensagens=st.session_state.messages,
-                urgencia=urgencia_pdf
-            )
-            nome_ficheiro = st.session_state.dados.get("nome", "Doente")
-            st.download_button(
-                label="📄 Exportar Triagem em PDF",
-                data=pdf_bytes,
-                file_name=f"Relatorio_Triagem_{nome_ficheiro}.pdf",
-                mime="application/pdf",
-                use_container_width=True
-            )
-        except Exception as e:
-            st.error(f"Erro ao gerar o PDF: {e}")
-
-    # O Botão e Rodapé ficam FORA do placeholder, para serem desenhados apenas 1 vez (evitando o DuplicateKey error),
-    # mas mantêm exatamente a mesma posição na interface!
-    st.markdown("")  # Espaço
-    if st.button("🔄 Nova Triagem", use_container_width=True, key="nova_triagem"):
-        if len(st.session_state.messages) > 1:
-            import json, os
-            from datetime import datetime
-            log_file = "logs_triagem.json"
-            logs = []
-            if os.path.exists(log_file):
-                try:
-                    with open(log_file, "r", encoding="utf-8") as f:
-                        logs = json.load(f)
-                except:
-                    pass
-            novo_log = {
-                "timestamp": datetime.now().isoformat(),
-                "doente": st.session_state.dados,
-                "urgencia": st.session_state.get("nivel_urgencia", "Indeterminada"),
-                "mensagens": st.session_state.messages
-            }
-            logs.append(novo_log)
-            with open(log_file, "w", encoding="utf-8") as f:
-                json.dump(logs, f, indent=4, ensure_ascii=False)
-                
-        for key in ["messages", "fase", "dados", "triagem_resumo", "nivel_urgencia"]:
-            if key in st.session_state:
-                del st.session_state[key]
-        st.session_state.switch_to_chat_tab = True
-        st.rerun()
-
+    st.markdown("<br>", unsafe_allow_html=True)
+    botoes_placeholder = st.empty()
     st.markdown("---")
-    st.markdown(
-        "<p style='font-size: 0.7rem; color: #475569 !important; text-align: center;'>"
-        "Ambientes Inteligentes<br>"
-        "Universidade do Minho 2025/26</p>",
-        unsafe_allow_html=True
-    )
+    st.markdown("<p style='font-size: 0.7rem; color: #475569 !important; text-align: center;'>Ambientes Inteligentes<br>Universidade do Minho 2025/26</p>", unsafe_allow_html=True)
 
-# Renderização inicial rápida
+def atualizar_sidebar():
+    """Desenha a ficha IMEDIATAMENTE quando chamada, evitando clarões brancos."""
+    with dados_placeholder.container():
+        dados = st.session_state.dados
+        fase = st.session_state.fase
+        if fase == "identificacao":
+            st.markdown("""<div class="sidebar-card"><h4>Estado</h4><span class="status-badge status-triagem">Triagem Inicial</span><p style="margin-top: 0.6rem;">A aguardar identificação do doente...</p></div>""", unsafe_allow_html=True)
+        else:
+            st.markdown(f"""<div class="sidebar-card"><h4>Identificação</h4><p>{dados.get("nome_idade", "---")}</p></div>""", unsafe_allow_html=True)
+            if dados.get("queixa"):
+                st.markdown(f"""<div class="sidebar-card"><h4>Queixa Principal</h4><p>{dados['queixa'][:120]}{'...' if len(dados.get('queixa','')) > 120 else ''}</p></div>""", unsafe_allow_html=True)
+            if dados.get("condicoes"):
+                st.markdown(f"""<div class="sidebar-card"><h4>Histórico / Alergias</h4><p>{dados['condicoes'][:120]}{'...' if len(dados.get('condicoes','')) > 120 else ''}</p></div>""", unsafe_allow_html=True)
+
+            status = "consulta" if fase == "consulta" else "triagem"
+            badge_class = "status-consulta" if fase == "consulta" else "status-triagem"
+            label = "Em Consulta" if fase == "consulta" else "Triagem em Curso"
+            
+            urgencia = calcular_urgencia_atual()
+            urg_class = "status-verde" if urgencia == "Verde" else "status-amarelo" if urgencia == "Amarelo" else "status-vermelho"
+            urg_label = "🟢 Risco Baixo" if urgencia == "Verde" else "🟡 Avaliação" if urgencia == "Amarelo" else "🔴 EMERGÊNCIA"
+
+            st.markdown(f"""<div class="sidebar-card"><h4>Estado & Risco</h4><div class="status-box"><span class="status-badge {badge_class}">{label}</span><span class="status-badge {urg_class}">{urg_label}</span></div></div>""", unsafe_allow_html=True)
+
+# Chamada inicial para a ficha não estar em branco ao abrir a app
 atualizar_sidebar()
 
-
-
-
-
 # ============================================================
-# TABS (CHAT E DASHBOARD)
+# 5. DASHBOARD E CHAT
 # ============================================================
 tab_chat, tab_dashboard = st.tabs(['💬 Chat Triagem', '📊 Dashboard Métricas'])
 
 with tab_dashboard:
-    import json, os
-    import pandas as pd
-    import plotly.express as px
+    import json, os, pandas as pd
+    try:
+        import plotly.express as px
+    except ImportError:
+        pass
     st.markdown('Bem-vindo ao painel de controlo. Aqui pode monitorizar em tempo real o volume e as características das triagens realizadas pelo Chatbot.')
     LOG_FILE = 'logs_triagem.json'
     if not os.path.exists(LOG_FILE):
@@ -648,7 +468,6 @@ with tab_dashboard:
                 
                 st.markdown('<hr>', unsafe_allow_html=True)
                 
-                # Extrair idades e faixas etárias
                 import re
                 def get_age(x):
                     if isinstance(x, dict) and 'nome_idade' in x:
@@ -665,8 +484,6 @@ with tab_dashboard:
                     if a <= 65: return '51-65'
                     return '> 65'
                 df['Faixa Etária'] = df['Idade'].apply(cat_age)
-                
-                # Renomear coluna para ter acento
                 df['Género'] = df['Genero']
                 
                 c1, c2 = st.columns(2)
@@ -707,243 +524,175 @@ with tab_dashboard:
         except Exception as e:
             st.error(f'Erro ao carregar dashboard: {e}')
 
-
-# ============================================================
-# 7. INPUT DO UTILIZADOR (NA RAIZ PARA FLUTUAR)
-# ============================================================
 prompt = st.chat_input("Descreva o que está a sentir...")
 
 with tab_chat:
-    # ============================================================
-    # 6. MOSTRAR HISTÓRICO DE MENSAGENS
-    # ============================================================
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-
-# ============================================================
     if prompt:
-
-        # Mostrar mensagem do utilizador
         st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
+        with st.chat_message("user"): st.markdown(prompt)
 
         fase = st.session_state.fase
 
-        # ----------------------------------------------------------
-        # FASE 1: IDENTIFICAÇÃO (nome e idade)
-        # ----------------------------------------------------------
         if fase == "identificacao":
-            # ---- DETEÇÃO DE NOME E GÉNERO (Nlp Básico) ----
             import re
+            
+            # Definimos o texto limpo logo aqui para não dar erro no género mais abaixo!
             texto_limpo = re.sub(r'[^\w\s]', ' ', prompt.lower())
-            stop_words = {"eu", "sou", "o", "a", "chamo", "me", "meu", "nome", "é", "e", "tenho", "anos", "de", "idade", "olá", "ola", "bom", "dia", "boa", "tarde", "noite", "genero", "género", "sexo", "como"}
             
-            palavras = texto_limpo.split()
-            palavras_nome = [p for p in palavras if p not in stop_words and not p.isdigit() and p not in ["mulher", "homem", "feminino", "masculino", "rapariga", "rapaz"]]
+            # --- NOVA LÓGICA DE NOME (APANHA ATÉ 2 PALAVRAS) ---
+            match_nome = re.search(r"(?:chamo-me|sou o|sou a|sou|meu nome é|chamo me)\s+([A-Za-zÀ-ÿ]+(?:\s+[A-Za-zÀ-ÿ]+)?)", prompt, re.IGNORECASE)
             
-            primeiro_nome = palavras_nome[0].capitalize() if palavras_nome else "Utente"
+            if match_nome:
+                nome_capturado = match_nome.group(1).strip()
+                palavras = nome_capturado.split()
+                # Se a segunda palavra for lixo (ex: "tenho", "anos"), corta e usa só a primeira
+                if len(palavras) > 1 and palavras[1].lower() in ["tenho", "e", "sou", "um", "uma", "mas", "anos"]:
+                    primeiro_nome = palavras[0].capitalize()
+                else:
+                    primeiro_nome = nome_capturado.title()
+            else:
+                # Sistema de segurança antigo caso não apanhe a frase
+                stop_words = {"eu","sou","o","a","chamo","me","meu","nome","é","e","tenho","anos","de","idade","olá","ola","bom","dia","boa","tarde","noite","genero","género","sexo","como"}
+                palavras = texto_limpo.split()
+                palavras_nome = [p for p in palavras if p not in stop_words and not p.isdigit() and p not in ["mulher","homem","feminino","masculino","rapariga","rapaz"]]
+                primeiro_nome = palavras_nome[0].capitalize() if palavras_nome else "Utente"
+            
             
             idade_match = re.search(r'\d+', prompt)
             idade_str = idade_match.group(0) if idade_match else "?"
             
-            st.session_state.dados["nome_idade"] = f"{primeiro_nome}, {idade_str} anos"
+            if any(w in texto_limpo for w in ["mulher","feminino","rapariga","menina","senhora","ela"]): genero = "feminino"
+            elif any(w in texto_limpo for w in ["homem","masculino","rapaz","menino","senhor","ele"]): genero = "masculino"
+            else: genero = "neutro"
 
-            # Extrair género com base nas palavras do utilizador
-            if any(w in texto_limpo for w in ["mulher", "feminino", "rapariga", "menina", "senhora", "ela"]):
-                genero = "feminino"
-            elif any(w in texto_limpo for w in ["homem", "masculino", "rapaz", "menino", "senhor", "ele"]):
-                genero = "masculino"
-            else:
-                genero = "neutro"
-
-            st.session_state.dados["nome"] = primeiro_nome
-            st.session_state.dados["genero"] = genero
+            st.session_state.dados.update({"nome_idade": f"{primeiro_nome}, {idade_str} anos", "nome": primeiro_nome, "genero": genero, "idade": idade_str})
             st.session_state.fase = "consulta"
-
-            # Atualizar sidebar antes de o bot escrever para não haver atraso visual
+            
             atualizar_sidebar()
 
-            # Adaptar a mensagem ao género
-            if genero == "feminino":
-                ajuda = "ajudá-la"
-                obrigado = "obrigada"
-            elif genero == "masculino":
-                ajuda = "ajudá-lo"
-                obrigado = "obrigado"
-            else:
-                ajuda = "ajudá-lo(a)"
-                obrigado = "obrigado(a)"
-
-            resposta = (
-                f"Muito {obrigado}, {primeiro_nome}! Fico contente por poder {ajuda}.\n\n"
-                f"Agora preciso de perceber o que se passa consigo. "
-                f"**Descreva-me o que está a sentir**, incluindo há quanto tempo "
-                f"começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n"
-                f"*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
-            )
-
-            with st.chat_message("assistant"):
-                st.markdown(resposta)
+            ajuda, obrigado = ("ajudá-la", "obrigada") if genero == "feminino" else ("ajudá-lo", "obrigado") if genero == "masculino" else ("ajudá-lo(a)", "obrigado(a)")
+            resposta = f"Muito {obrigado}, {primeiro_nome}! Fico contente por poder {ajuda}.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            with st.chat_message("assistant"): st.markdown(resposta)
             st.session_state.messages.append({"role": "assistant", "content": resposta})
 
-        # ----------------------------------------------------------
-        # FASE 2: CONSULTA (conversa com RAG + LLM + Triagem do TXT)
-        # O LLM recebe SEMPRE o histórico completo da conversa,
-        # por isso NUNCA repete perguntas que o utilizador já respondeu.
-        # ----------------------------------------------------------
         elif fase == "consulta":
             with st.chat_message("assistant"):
                 placeholder = st.empty()
                 placeholder.markdown("*A consultar protocolos clínicos...*")
 
-                # Guardar a queixa principal (primeira vez que o doente fala dos sintomas)
                 if "queixa" not in st.session_state.dados:
                     st.session_state.dados["queixa"] = prompt
 
-                # Atualizar sidebar ANTES do LLM começar a pensar, para refletir já a nova urgência!
+                _ = calcular_urgencia_atual()
                 atualizar_sidebar()
 
-                # ---- PESQUISA RAG (k=2 para ser mais rápido) ----
                 contexto_medico = pesquisar_rag_rapido(prompt, k=2)
+                resumo = f"DADOS DE TRIAGEM:\n- Nome: {st.session_state.dados.get('nome')}\n- Idade: {st.session_state.dados.get('idade', '?')} anos\n- Género: {st.session_state.dados.get('genero')}\n- Queixa: {st.session_state.dados.get('queixa')}"
+                prompt_llm = f"{resumo}\n\nPROTOCOLOS (RAG):\n{contexto_medico}\n\nO QUE O DOENTE DISSE AGORA:\n{prompt}"
 
-                # ---- CONSTRUIR CONTEXTO ----
-                dados = st.session_state.dados
-                genero = dados.get("genero", "neutro")
-                nome = dados.get("nome", "")
-                resumo = (
-                    "DADOS DE TRIAGEM DO DOENTE:\n"
-                    f"- Identificação: {dados.get('nome_idade', 'Não fornecido')}\n"
-                    f"- Nome: {nome}\n"
-                    f"- Género: {genero} (IMPORTANTE: usa terminações {'femininas (-a, -ada)' if genero == 'feminino' else 'masculinas (-o, -ado)' if genero == 'masculino' else 'neutras'} ao referir-te ao doente)\n"
-                )
-                if dados.get("queixa"):
-                    resumo += f"- Queixa inicial: {dados['queixa']}\n"
-
-                st.session_state.triagem_resumo = resumo
-
-                prompt_llm = (
-                    f"{resumo}\n\n"
-                    f"PROTOCOLOS CLÍNICOS RELEVANTES (RAG):\n{contexto_medico}\n\n"
-                    f"O QUE O DOENTE DISSE AGORA:\n{prompt}"
-                )
-
-                # ---- HISTÓRICO (últimas 10 mensagens para não sobrecarregar) ----
-                historico = st.session_state.messages[:-1]
-                if len(historico) > 10:
-                    historico = historico[-10:]
-
-                mensagens_llm = [
-                    {"role": m["role"], "content": m["content"]} for m in historico
-                ]
+                mensagens_llm = [{"role": m["role"], "content": m["content"]} for m in st.session_state.messages[:-1][-10:]]
                 mensagens_llm.append({"role": "user", "content": prompt_llm})
 
-
-                # ---- STREAMING COM INDICADOR ANIMADO ----
-                # O LLM demora a processar o contexto antes de emitir o 1º token.
-                # Usamos uma thread para que o UI possa mostrar uma animação
-                # enquanto espera, e o utilizador saiba que está a funcionar.
                 import threading, queue, itertools
-
-                fases_espera = itertools.cycle([
-                    "A analisar os seus sintomas",
-                    "A analisar os seus sintomas.",
-                    "A analisar os seus sintomas..",
-                    "A analisar os seus sintomas...",
-                    "A consultar protocolos clínicos",
-                    "A consultar protocolos clínicos.",
-                    "A consultar protocolos clínicos..",
-                    "A consultar protocolos clínicos...",
-                ])
-
+                fases_espera = itertools.cycle(["A analisar sintomas.", "A analisar sintomas..", "A analisar sintomas..."])
                 token_queue = queue.Queue()
 
                 def gerar_resposta():
-                    """Thread que chama o LLM e coloca tokens na fila."""
                     try:
-                        stream = ollama.chat(
-                            model='triagem_bot',
-                            messages=mensagens_llm,
-                            stream=True
-                        )
-                        for chunk in stream:
+                        for chunk in ollama.chat(model='triagem_bot', messages=mensagens_llm, stream=True):
                             token_queue.put(chunk['message']['content'])
-                        token_queue.put(None)  # Fim do stream
-                    except Exception as e:
-                        token_queue.put(e)
+                        token_queue.put(None) 
+                    except Exception as e: token_queue.put(e)
 
-                thread = threading.Thread(target=gerar_resposta, daemon=True)
-                thread.start()
+                threading.Thread(target=gerar_resposta, daemon=True).start()
 
-                # Enquanto não chega o 1º token, anima o indicador
                 resposta_llm = ""
-                primeiro_token_recebido = False
+                recebido = False
                 try:
                     while True:
                         try:
                             item = token_queue.get(timeout=0.3)
-                            if item is None:
-                                break
-                            if isinstance(item, Exception):
-                                raise item
-                            primeiro_token_recebido = True
+                            if item is None: break
+                            if isinstance(item, Exception): raise item
+                            recebido = True
                             resposta_llm += item
                             placeholder.markdown(resposta_llm + " ▌")
                             break
-                        except queue.Empty:
-                            # Ainda sem tokens — mostra animação
-                            placeholder.markdown(f"*{next(fases_espera)}*")
+                        except queue.Empty: placeholder.markdown(f"*{next(fases_espera)}*")
 
-                    # Continuar o streaming — texto aparece palavra a palavra
-                    if primeiro_token_recebido:
+                    if recebido:
                         while True:
                             try:
                                 item = token_queue.get(timeout=5.0)
-                                if item is None:
-                                    break
-                                if isinstance(item, Exception):
-                                    raise item
+                                if item is None: break
+                                if isinstance(item, Exception): raise item
                                 resposta_llm += item
                                 placeholder.markdown(resposta_llm + " ▌")
-                            except queue.Empty:
-                                break
-
+                            except queue.Empty: break
                 except Exception as e:
                     placeholder.empty()
-                    st.error(
-                        f"Não foi possível contactar o modelo. "
-                        f"Verifique que o Ollama está a correr e que o modelo 'triagem_bot' existe.\n\n"
-                        f"Erro: {e}"
-                    )
+                    st.error(f"Erro: {e}")
                     st.stop()
 
-                # ---- VALIDAÇÃO DO AGENTE DE SEGURANÇA ----
-                resposta_final = agent_validator.validar_resposta_agente(
-                    resposta_llm,
-                    mensagem_utilizador=prompt
-                )
+                try: resposta_final = agent_validator.validar_resposta_agente(resposta_llm, mensagem_utilizador=prompt)
+                except: resposta_final = agent_validator.validar_resposta_agente(resposta_llm)
+
                 placeholder.markdown(resposta_final)
                 st.session_state.messages.append({"role": "assistant", "content": resposta_final})
 
-# Renderizar a sidebar por último para garantir que tem o estado mais atualizado
-atualizar_sidebar()
+                _ = calcular_urgencia_atual()
+                atualizar_sidebar()
 
 # ============================================================
-# 8. HACKS E UTILITÁRIOS (JS INJECTIONS)
+# 6. INJEÇÃO DOS BOTÕES NO PLACEHOLDER
 # ============================================================
-if st.session_state.get("switch_to_chat_tab"):
+with botoes_placeholder.container():
+    if st.session_state.fase == "consulta" and len(st.session_state.messages) > 1:
+        try:
+            import pdf_generator
+            import os  # Biblioteca para lidar com pastas e ficheiros
+            # 1. Gera os bytes do PDF
+            pdf_bytes = pdf_generator.gerar_pdf_triagem(st.session_state.dados, st.session_state.messages, st.session_state.get("nivel_urgencia", "Indeterminada"))
+            nome_ficheiro = f"Relatorio_{st.session_state.dados.get('nome', 'Utente')}.pdf"
+            
+            # --- Salvar na pasta relatorios_triagem ---
+            pasta_destino = "relatorios_triagem"
+            os.makedirs(pasta_destino, exist_ok=True)  # Se a pasta não existir, o Python cria-a automaticamente
+            caminho_completo = os.path.join(pasta_destino, nome_ficheiro)
+            
+            # Escreve o PDF diretamente na pasta local
+            with open(caminho_completo, "wb") as f:
+                f.write(pdf_bytes)
+            # -----------------------------------------------------------
+            
+            # 2. Mantém o botão para tu fazeres o download se quiseres
+            st.download_button("📄 Exportar Triagem em PDF", data=bytes(pdf_bytes), file_name=nome_ficheiro, mime="application/pdf", use_container_width=True)
+            
+        except Exception as e: st.error(f"Erro PDF: {e}")
+
+    st.markdown("")
+    if st.button("🔄 Nova Triagem", use_container_width=True):
+        if len(st.session_state.messages) > 1:
+            import json, os
+            from datetime import datetime
+            logs = []
+            if os.path.exists("logs_triagem.json"):
+                try:
+                    with open("logs_triagem.json", "r", encoding="utf-8") as f: logs = json.load(f)
+                except: pass
+            logs.append({"timestamp": datetime.now().isoformat(), "doente": st.session_state.dados, "urgencia": st.session_state.get("nivel_urgencia", "Indeterminada"), "mensagens": st.session_state.messages})
+            with open("logs_triagem.json", "w", encoding="utf-8") as f: json.dump(logs, f, indent=4, ensure_ascii=False)
+                
+        for key in ["messages", "fase", "dados", "triagem_resumo", "nivel_urgencia"]:
+            if key in st.session_state: del st.session_state[key]
+        st.session_state.switch_to_chat_tab = True
+        st.rerun()
+
+if st.session_state.get("switch_to_chat_tab"): 
     st.session_state.switch_to_chat_tab = False
     import streamlit.components.v1 as components
-    components.html("""
-    <script>
-        // Atrasar ligeiramente para garantir que o DOM do Streamlit carregou totalmente
-        setTimeout(function() {
-            const tabs = window.parent.document.querySelectorAll('div[data-testid="stTabs"] button');
-            if (tabs.length > 0) {
-                tabs[0].click();
-            }
-        }, 100);
-    </script>
-    """, height=0)
+    components.html("""<script>setTimeout(function() { const tabs = window.parent.document.querySelectorAll('div[data-testid="stTabs"] button'); if (tabs.length > 0) { tabs[0].click(); } }, 100);</script>""", height=0)
