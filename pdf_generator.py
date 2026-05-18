@@ -93,4 +93,4 @@ def gerar_pdf_triagem(dados, mensagens, urgencia):
         pdf.ln(4)
         
     # Retornar como bytes
-    return pdf.output(dest='S')
+    return bytes(pdf.output())

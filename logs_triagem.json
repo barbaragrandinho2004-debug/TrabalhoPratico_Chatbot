@@ -213,5 +213,69 @@
                 "content": "**[Intervenção do Agente de Segurança]**\nDetetei que a resposta gerada poderia conter sugestões de automedicação arriscada ou diagnósticos definitivos que ultrapassam o meu âmbito.\n\nPara sua segurança, peço que **contacte imediatamente o SNS 24 (808 24 24 24)** ou dirija-se a um posto de saúde para avaliação presencial."
             }
         ]
+    },
+    {
+        "timestamp": "2026-05-18T10:39:29.213187",
+        "doente": {
+            "nome_idade": "Jorge, 53 anos",
+            "nome": "Jorge",
+            "genero": "masculino",
+            "queixa": "Estou com uma dor muito forte no centro do peito que começou há cerca de meia hora. Sinto também que o meu braço esquerdo está dormente e estou com muita falta de ar e a suar frio."
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Bom dia! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Jorge, 53 anos, masculino"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado, Jorge! Fico contente por poder ajudá-lo.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Estou com uma dor muito forte no centro do peito que começou há cerca de meia hora. Sinto também que o meu braço esquerdo está dormente e estou com muita falta de ar e a suar frio."
+            },
+            {
+                "role": "assistant",
+                "content": "Jorge, a sua descrição é muito preocupante. A dor no peito, a dormência no braço esquerdo, a falta de ar e o suor frio são sintomas que podem indicar um problema grave.\n\nCom base nos seus sintomas, e tendo em conta a rapidez com que começaram, suspeito fortemente de um possível Infarto Agudo do Miocárdio (Ataque Cardíaco).\n\n**O que me diz? A dor no peito parece um aperto ou peso forte?**\n\n\n**[Nota de Segurança]**\nOs sintomas que descreveu podem indicar uma situação que requer avaliação médica urgente. Por favor, considere contactar o **112** ou dirigir-se ao **Serviço de Urgência** mais próximo.\n\n---\n*Isto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24).*"
+            }
+        ]
+    },
+    {
+        "timestamp": "2026-05-18T10:50:47.046106",
+        "doente": {
+            "nome_idade": "Joaquim, 50 anos",
+            "nome": "Joaquim",
+            "genero": "masculino",
+            "queixa": "Estou com uma dor muito forte no centro do peito que começou há cerca de meia hora. Sinto também que o meu braço esquerdo está dormente e estou com muita falta de ar e a suar frio."
+        },
+        "urgencia": "Vermelho",
+        "mensagens": [
+            {
+                "role": "assistant",
+                "content": "Bom dia! Bem-vindo(a) ao serviço de triagem virtual.\n\nSou a assistente da Linha Saúde 24 e estou aqui para o/a ajudar a perceber melhor os seus sintomas e orientá-lo(a) nos próximos passos.\n\nPara começarmos, podia dizer-me **o seu nome, idade e com que género se identifica**, por favor?"
+            },
+            {
+                "role": "user",
+                "content": "Joaquim, 50 anos, masculino"
+            },
+            {
+                "role": "assistant",
+                "content": "Muito obrigado, Joaquim! Fico contente por poder ajudá-lo.\n\nAgora preciso de perceber o que se passa consigo. **Descreva-me o que está a sentir**, incluindo há quanto tempo começou e se tem alguma doença crónica ou alergia a medicamentos.\n\n*Pode dizer tudo com calma, numa só mensagem ou aos poucos.*"
+            },
+            {
+                "role": "user",
+                "content": "Estou com uma dor muito forte no centro do peito que começou há cerca de meia hora. Sinto também que o meu braço esquerdo está dormente e estou com muita falta de ar e a suar frio."
+            },
+            {
+                "role": "assistant",
+                "content": "Joaquim, a sua situação parece muito grave. A dor no peito, a dormência no braço esquerdo, a falta de ar e o suor frio são sintomas que merecem atenção imediata.\n\nCom base no que me descreve, a sua situação pode ser compatível com um **Enfarte Agudo do Miocárdio (Ataque Cardíaco)**.\n\n**Recomendações:**\n\n*   **Ligue IMEDIATAMENTE para o 112.** Não espere.\n*   Mantenha-se em repouso absoluto.\n*   Não tome nada por conta própria.\n\nIsto não substitui uma consulta com um médico ou profissional de saúde. Para orientações clínicas específicas, consulte um especialista ou contacte o SNS 24 (808 24 24 24)."
+            }
+        ]
     }
 ]

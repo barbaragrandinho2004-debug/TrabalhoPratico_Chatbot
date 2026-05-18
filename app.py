@@ -326,6 +326,14 @@ st.markdown("""
     .status-amarelo { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
     .status-vermelho { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
+    /* CAIXA QUE ENVOLVE OS BADGES */
+    .status-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
     /* ===== ALERTAS STREAMLIT ===== */
     div[data-testid="stAlert"] {
         background: #fef2f2 !important;
@@ -468,7 +476,7 @@ def calcular_urgencia_atual():
 with st.sidebar:
     st.markdown("### Ficha do Doente")
 
-    # Placeholder APENAS para os dados mutáveis (Estado, Identificação, Risco)
+    # Placeholder para os dados mutáveis (Estado, Identificação, Risco)
     dados_placeholder = st.empty()
 
     def atualizar_sidebar():
@@ -533,7 +541,7 @@ with st.sidebar:
     # mas mantêm exatamente a mesma posição na interface!
     st.markdown("")  # Espaço
     
-    # --- NOVO: BOTÃO DE EXPORTAR PDF ---
+    # --- BOTÃO DE EXPORTAR PDF ---
     if st.session_state.fase == "consulta" and len(st.session_state.messages) > 1:
         import pdf_generator
         try:
@@ -552,7 +560,7 @@ with st.sidebar:
                 use_container_width=True
             )
         except Exception as e:
-            pass
+            st.error(f"Erro ao gerar o PDF: {e}")
 
     # O Botão e Rodapé ficam FORA do placeholder, para serem desenhados apenas 1 vez (evitando o DuplicateKey error),
     # mas mantêm exatamente a mesma posição na interface!
