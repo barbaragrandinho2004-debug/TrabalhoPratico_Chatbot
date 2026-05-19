@@ -571,6 +571,9 @@ with tab_chat:
 
             st.session_state.dados.update({"nome_idade": f"{primeiro_nome}, {idade_str} anos", "nome": primeiro_nome, "genero": genero, "idade": idade_str})
             st.session_state.fase = "consulta"
+            # --- NOVO: Guarda o timestamp fixo assim que entra em consulta ---
+            from datetime import datetime
+            st.session_state.timestamp_relatorio = datetime.now().strftime("%Y%m%d_%H%M%S")
             
             atualizar_sidebar()
 
@@ -651,13 +654,20 @@ with tab_chat:
 # 6. INJEÇÃO DOS BOTÕES NO PLACEHOLDER
 # ============================================================
 with botoes_placeholder.container():
+
+    from datetime import datetime
+    import os # Biblioteca para lidar com pastas e ficheiros
+
     if st.session_state.fase == "consulta" and len(st.session_state.messages) > 1:
         try:
             import pdf_generator
-            import os  # Biblioteca para lidar com pastas e ficheiros
-            # 1. Gera os bytes do PDF
+            
+           # 1. Gera os bytes do PDF
             pdf_bytes = pdf_generator.gerar_pdf_triagem(st.session_state.dados, st.session_state.messages, st.session_state.get("nivel_urgencia", "Indeterminada"))
-            nome_ficheiro = f"Relatorio_{st.session_state.dados.get('nome', 'Utente')}.pdf"
+
+            # ---Vai buscar o timestamp fixo que guardámos no session_state ---
+            timestamp = st.session_state.get("timestamp_relatorio", "00000000_000000")
+            nome_ficheiro = f"Relatorio_{st.session_state.dados.get('nome', 'Utente')}_{timestamp}.pdf"
             
             # --- Salvar na pasta relatorios_triagem ---
             pasta_destino = "relatorios_triagem"
@@ -677,8 +687,8 @@ with botoes_placeholder.container():
     st.markdown("")
     if st.button("🔄 Nova Triagem", use_container_width=True):
         if len(st.session_state.messages) > 1:
-            import json, os
-            from datetime import datetime
+            import json
+        
             logs = []
             if os.path.exists("logs_triagem.json"):
                 try:
